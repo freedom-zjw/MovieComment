@@ -161,7 +161,7 @@
     <div id="search_contain">
         <form action="search.jsp" method="get" id="serach_form">
             <input type="text"  name="content" id="search1" value="<%=Search_info%>">
-            <input type="submit" id="submit1"  name="submit" value="搜索">
+            <input type="submit" id="submit1"  name="submit" value="搜索" class="botton">
             <select id="sort" name="sort">
                 <option value="unselect" <%=Chooess[0]%>>请选择</option>
                 <option value="date" <%=Chooess[1]%>>最新</option>
@@ -181,6 +181,7 @@
                 <img src="<%=Img_src[0]%>" class="search_img" onclick="location.href='info.jsp?mid=<%=mid[0]%>/'">
                 <p class="search_name" onclick="location.href='info.jsp?mid=<%=mid[0]%>/'"><%=Name[0]%></p>
                 <p class="search_info" onclick="location.href='info.jsp?mid=<%=mid[0]%>/'"><%=Info[0]%></p>
+                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[0]%>/'">上映日期：<%=Date[0]%></p>
                 <p class="search_score" onclick="location.href='info.jsp?mid=<%=mid[0]%>/'"><%=Score[0]%></p>
                 <hr class="search_hr">
                 <i class="fa fa-heart-o" name="like" onclick="onmouseclick(0)"></i>
@@ -190,6 +191,7 @@
                 <img src="<%=Img_src[1]%>" class="search_img" onclick="location.href='info.jsp?mid=<%=mid[1]%>/'">
                 <p class="search_name" onclick="location.href='info.jsp?mid=<%=mid[1]%>/'"><%=Name[1]%></p>
                 <p class="search_info" onclick="location.href='info.jsp?mid=<%=mid[1]%>/'"><%=Info[1]%></p>
+                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[0]%>/'">上映日期：<%=Date[1]%></p>
                 <p class="search_score" onclick="location.href='info.jsp?mid=<%=mid[1]%>/'"><%=Score[1]%></p>
                 <hr class="search_hr" >
                 <i class="fa fa-heart-o" name="like" onclick="onmouseclick(1)"></i>
@@ -198,6 +200,7 @@
                 <img src="<%=Img_src[2]%>" class="search_img" onclick="location.href='info.jsp?mid=<%=mid[2]%>/'">
                 <p class="search_name" onclick="location.href='info.jsp?mid=<%=mid[2]%>/'"><%=Name[2]%></p>
                 <p class="search_info" onclick="location.href='info.jsp?mid=<%=mid[2]%>/'"><%=Info[2]%></p>
+                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[0]%>/'">上映日期：<%=Date[2]%></p>
                 <p class="search_score" onclick="location.href='info.jsp?mid=<%=mid[2]%>/'"><%=Score[2]%></p>
                 <hr class="search_hr">
                 <i class="fa fa-heart-o" name="like" onclick="onmouseclick(2)"></i>
@@ -206,6 +209,7 @@
                 <img src="<%=Img_src[3]%>" class="search_img" onclick="location.href='info.jsp?mid=<%=mid[3]%>/'">
                 <p class="search_name" onclick="location.href='info.jsp?mid=<%=mid[3]%>/'"> <%=Name[3]%></p>
                 <p class="search_info" onclick="location.href='info.jsp?mid=<%=mid[3]%>/'"><%=Info[3]%></p>
+                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[0]%>/'">上映日期：<%=Date[3]%></p>
                 <p class="search_score" onclick="location.href='info.jsp?mid=<%=mid[3]%>/'"><%=Score[3]%></p>
                 <hr class="search_hr">
                 <i class="fa fa-heart-o" name="like" onclick="onmouseclick(3)"></i>
@@ -214,6 +218,7 @@
                 <img src="<%=Img_src[4]%>" class="search_img" onclick="location.href='info.jsp?mid=<%=mid[4]%>/'">
                 <p class="search_name" onclick="location.href='info.jsp?mid=<%=mid[4]%>/'"><%=Name[4]%></p>
                 <p class="search_info" onclick="location.href='info.jsp?mid=<%=mid[4]%>/'"><%=Info[4]%></p>
+                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[0]%>/'">上映日期：<%=Date[4]%></p>
                 <p class="search_score" onclick="location.href='info.jsp?mid=<%=mid[4]%>/'"><%=Score[4]%></p>
                 <hr class="search_hr">
                 <i class="fa fa-heart-o" name="like" onclick="onmouseclick(4)"></i>

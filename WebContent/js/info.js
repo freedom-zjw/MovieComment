@@ -38,3 +38,33 @@ function outmoveli(i) {
     obj[i].style.borderRadius="10px";
     obj[i].style.boxShadow="none";
 }
+function openModal(imgsrc) {
+    document.getElementById("display_outer").style.display = "block";
+    document.getElementById("imgs").src=imgsrc;
+}
+
+function closeModal() {
+    document.getElementById("display_outer").style.display = "none";
+}
+
+function setdisplayimg(src0,src1,src2,src3,src4) {
+    var Obj=document.getElementsByClassName("openimg");
+    if(src0!="")Obj[0].style.display="inline";
+    if(src1!="")Obj[1].style.display="inline";
+    if(src2!="")Obj[2].style.display="inline";
+    if(src3!="")Obj[3].style.display="inline";
+    if(src4!="")Obj[4].style.display="inline";
+
+}
+
+function setImagePreview() {
+    var docObj=document.getElementById("file");
+    var imgObjPreview=document.getElementById("imgs");
+    var bkObj=document.getElementById("display_outer");
+    if(docObj.files &&docObj.files[0])
+    {
+        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+        bkObj.style.display = "block";
+    }
+
+}

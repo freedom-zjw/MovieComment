@@ -17,9 +17,13 @@
     String featured_img_src[]={"onesheet.jpg","onesheet.jpg","onesheet.jpg","onesheet.jpg"};//精选图片
     String featured_name[]={"name1","name2","name3","name4"};//精选电影名
     String featured_id[]={"1","2","3","4"};//精选点击后转跳,只需要填id
+
+
     String today="https://www.youtube.com/embed/vn9mMeWcgoM";//今日推荐
     String today_id="10";//今日推荐点击转跳
     String today_name=".....";//今日推荐名字
+    String today_info="";//今日推荐的简介
+    String today_src="";//今日推荐的图片
 %>
 <!DOCTYPE HTML>
 <html  lang="zh-cn">

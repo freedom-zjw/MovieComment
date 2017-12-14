@@ -142,6 +142,12 @@
     word-wrap:break-word;
     word-break:break-all;
 }
+.info_data{
+    position: absolute;
+    top:3px;
+    right: 10px;
+    font-style: italic;
+}
 .movie_img_content{
     width: 65px;
     height: 65px;

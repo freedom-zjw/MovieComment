@@ -1,11 +1,11 @@
-function setImagePreview(avalue) {
-　　var docObj=document.getElementById("file");
-　　var imgObjPreview=document.getElementById("preview");
-　　if(docObj.files &&docObj.files[0])
-　　{
-　　　　imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+function setImagePreview() {
+    var docObj=document.getElementById("file");
+    var imgObjPreview=document.getElementById("preview");
+    if(docObj.files &&docObj.files[0])
+    {
+        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
         imgObjPreview.style.opacity=1;
-　　}
+    }
 
 }
 function sexCheck(i) {

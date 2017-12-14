@@ -38,6 +38,15 @@
     -webkit-background-clip : text;
     font-size: 40px;
 }
+#dates{
+    position: absolute;
+    color: white;
+    right: 60px;
+    top:90px;
+    font-size: 25px;
+    text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;
+    font-style: italic;
+}
 #info_img{
     width: 400px;
     height: 570px;
@@ -286,6 +295,48 @@
     color: white;
     border-radius: 5px;
 }
+.openimg{
+    color: blue;
+    display: none;
+}
+#display_outer{
+    width: 100%;
+    min-width: 1000px;
+    position: absolute;
+    z-index: 10;
+    display: none;
+}
+#imagedisplay{
+    width:730px;
+    padding: 20px;
+    margin: 0 auto;
+    border: solid 4px gray;
+    border-radius: 30px;
+    background: linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.8));
+    z-index: 10;
+    text-align: center;
+    position: relative;
+}
+#imgs{
+    max-width: 700px;
+    border-radius: 20px;
+}
+#closebtn{
+    position: absolute;
+    right: 0px;
+    top:0px;
+    padding: 5px;
+    font-size: 20px;
+    background: rgba(255,0,0,0);
+    border-radius: 20px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    font-weight: bolder;
+    color: red;
+    text-shadow: 0px 0px 5px gray;
+}
+
 #footer_outer{
     background: #dfdfdf;
     clear: both;
