@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	font-size: 18px;
+}
+#main_bk{
+	top:-15%;
+	left: -7%;
+	filter: blur(10px) opacity(0.8);
+}
+#bk_outer{
+	height:  800px;
+}
+#outer_background{
+	height: 660px;
+	width: 100%;
+
+}
+#background{
+	top:100px;
+	text-align: center;
+	height: 300px;
+	width: 360px;
+	position: relative;
+	margin: 0 auto;
+	border-radius: 20px;
+	box-shadow: 0px 0px 5px gray;
+}
+#load_info{
+	width: 300px;
+	height: 200px;
+	position: absolute;
+	right: 30px;
+	top: 50px;
+
+}
+.input_12{
+	height: 30px;
+	width: 250px;
+	margin-bottom: 30px;
+	background-color: rgba(255,255,255,0.80);
+	border: 2px white;
+	font-size: 18px;
+	margin: 10px auto;
+	border-radius: 5px;
+	box-shadow: inset 0px 0px 2px #00a1d6;
+	padding:0px 5px;
+}
+.input_34{
+	height: 35px;
+	width: 100px;
+	margin: 10px 9px;
+	background-color: rgba(0,167,222,0.99);
+	color: white;
+	border: 2px rgba(0,167,222,0.99);
+	font-size: 18px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px gray;
+
+}
+.input_34:active{
+	box-shadow: inset 0px 0px 10px gray;
+}
+#code{
+	font-family:Times New Roman;
+	font-style:italic;
+	font-size: 25px;
+	font-weight:bold;
+	border:0;
+	letter-spacing:2px;
+	background: rgba(0,0,0,0.00);
+	color:white;
+	text-align: center;
+	height: 30px;
+	width: 90px;
+	border-radius: 5px;
+}
+
+#checkcode{
+	width: 100px;
+	background-color: rgba(255,255,255,0.80);
+	font-size: 18px;
+	margin: 10px;
+	border: 2px white;
+	box-shadow: inset 0px 0px 2px #00a1d6;
+	height: 26px;
+	border-radius: 5px;
+	padding:0px 5px;
+}
+#checkicon{
+	width: 35px;
+	font-size: 30px;
+	vertical-align:sub;
+	color: rgba(255,255,255,0);
+
+}
+input:focus{
+	border-color: #66afe9;
+	outline: 0;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.08),0 0 8px rgba(102,175,233,.6);
+	background: rgba(255,255,255,0.80);
+
+}
+#load {
+	position: absolute;
+	left: 11%;
+	top: 15%;
+}
+#footer_outer{
+	background: #dfdfdf;
+	clear: both;
+	overflow: auto;
+	padding-top: 10px;
+	padding-bottom: 40px;
+	height: auto;
+	width: 100%;
+	min-height: 170px;
+	min-width: 1000px;
+}

@@ -1,0 +1,133 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+#featured{
+	width: 100%;
+	min-width: 1000px;
+	height: 420px;
+	background: linear-gradient(rgba(0,0,0,0.4),rgba(255,255,255,1));
+}
+#featured_sub{
+	width: 980px;
+	margin: auto;
+	padding: 20px;
+	position: relative;
+}
+#featured_sub p{
+	font-size: 30px;
+	padding: 20px;
+	font-weight: bolder;
+	color: white;
+	position: absolute;
+}
+.subshow{
+	position: absolute;
+	top:100px;
+}
+.subshow>li{
+	text-align: center;
+	width: 245px;
+	float: left;
+}
+.subshow img{
+	display:block;
+	height: 250px;
+	margin: auto;
+
+}
+.subshow a{
+	display:inline-block;
+	padding: 5px 10px;
+	margin-top: 20px;
+	background: rgba(0,131,166,.4);
+	color: white;
+	border-radius: 5px;
+}
+.subshow>li:hover{
+
+	border-radius: 10px;
+	box-shadow: 0px 0px 5px rgba(0,131,166,.4);
+}
+#display_outer{
+	height: 550px;
+	width: 100%;
+	min-width: 1000px;
+}
+#display_in{
+	width: 900px;
+	height: inherit;
+	margin: auto;
+	position: relative;
+}
+#img_outer{
+	position: absolute;
+	top:0px;
+	left: 0px;
+	width: 900px;
+	height: 550px;
+	overflow: hidden;
+}
+#display_in img{
+	width: 900px;
+}
+#display_select{
+	position: absolute;
+	top:500px;
+	width: 880px;
+	height: 30px;
+	text-align: center;
+	background: rgba(128,128,128,0.5);
+	padding: 10px;
+}
+#main_img{
+	transition-property: all;
+	transition-duration: 1s;
+}
+.displaysub{
+	width: 180px;
+	margin: auto;
+	text-align: center;
+}
+.displaysub>li{
+	float:left;
+	width: 30px;
+	font-size: 25px;
+}
+.displaysub>li>a{
+	color: white;
+}
+#today_outer{
+	width: 100%;
+	height: 500px;
+}
+#today{
+	width: 980px;
+	margin: auto;
+	text-align: center;
+}
+#today a{
+	display:block;
+	margin-top: 10px;
+	font-size: 30px;
+	width: 940px;
+	text-align: center;
+	padding: 10px 20px;
+	font-weight: bolder;
+	color:  white;
+	background:linear-gradient(rgba(180,180,180,0.5),rgba(180,180,180,0.5));
+	border-radius: 20px;
+	position: absolute;
+}
+iframe{
+	margin: 80px 0px;
+}
+#footer_outer{
+	background: #dfdfdf;
+	clear: both;
+	overflow: auto;
+	padding-top: 10px;
+	padding-bottom: 40px;
+	height: 150px;
+	min-width: 1000px;
+}

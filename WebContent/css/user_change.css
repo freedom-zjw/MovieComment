@@ -1,0 +1,161 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background: url(../image/bk_login.png),#dfdfdf;
+	background-repeat: no-repeat;
+	background-size:100%;
+}
+#form_outer{
+	width: 100%;
+	min-width: 1000px;
+
+}
+#infor{
+	margin: 10px;
+	height: 600px;
+	width:800px;
+	margin:0px auto;
+	padding:20px;
+	position: relative;
+	background: linear-gradient(rgba(255,255,255,0.6),rgba(255,255,255,0.6));
+	border-radius: 10px;
+}
+#face{
+	position: absolute;
+	top:30px;
+	padding: 10px;
+	width: 780px;
+	height: 200px;
+}
+#face button{
+	position: absolute;
+	left: 320px;
+	width: 160px;
+	height: 200px;
+	background: linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.1));
+	border: none;
+	box-shadow: 0px 0px 5px gray;
+	color: white;
+	font-size: 25px;
+	border-radius: 10px;
+
+}
+#face input{
+	position: absolute;
+	opacity: 0;
+	left: 320px;
+	width: 160px;
+	height: 200px;
+	z-index: 999;
+}
+#face img{
+	position: absolute;
+	width: 160px;
+	height: 200px;
+	left: 320px;
+	z-index: 998;
+	border-radius: 10px;
+}
+
+#infor label{
+	font-size: 20px;
+	background: rgba(0,131,166,.4);
+	padding: 5px 10px 5px 20px;
+	border-radius: 5px;
+
+	color: white;
+	vertical-align:top;
+}
+
+#name{
+	position: absolute;
+	top:280px;
+	padding: 10px;
+}
+#name>input{
+	font-size: 20px;
+	height: 24px;
+	background: #f4f5f7;;
+	border-radius: 5px;
+	padding:2px 10px;
+	border: solid 1px #00a1d6;
+	width: 230px;
+	box-shadow: inset 0px 0px 5px gray;
+
+}
+#info {
+	position: absolute;
+	top:380px;
+	padding: 10px;
+	height: 100px;
+}
+#sex{
+	position: absolute;
+	top:330px;
+	padding: 10px;
+	font-size: 20px;
+}
+#sex i{
+	padding: 0px 10px;
+	font-size: 25px;
+	vertical-align: bottom;
+	font-weight: bolder;
+}
+.fa-mars{
+	color: blue;
+}
+.fa-venus{
+	color: red;
+}
+.fa-transgender{
+	color: green
+}
+#hobby{
+	position: absolute;
+	top:470px;
+	padding: 10px;
+
+}
+textarea{
+	width: 650px;
+	height: 70px;
+	resize: none;
+	background: #f4f5f7;
+	box-shadow: inset 0px 0px 5px gray;
+	border-radius: 5px;
+	padding:2px 10px;
+	border: solid 1px #00a1d6;
+}
+#btn{
+	position: absolute;
+	top:550px;
+	padding: 25px;
+	text-align: center;
+	width: 750px;
+}
+
+
+.button{
+	border: none;
+	border-radius: 5px;
+	background-color: rgba(0,167,222,0.99);
+	color: white;
+	font-size: 20px;
+	box-shadow: 0px 0px 5px gray;
+	margin: 0px 40px;
+	padding: 5px 20px;
+}
+.button:active{
+	box-shadow: inset 0px 0px 10px gray;
+	border: none;
+}
+#footer_outer{
+	margin-top: 20px;
+	background: #dfdfdf;
+	clear: both;
+	overflow: auto;
+	padding-bottom: 40px;
+	height: 150px;
+	min-width: 1000px;
+}
