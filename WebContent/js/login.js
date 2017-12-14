@@ -61,7 +61,7 @@ function inputin(i){
     }
 }
 function logined(i,s) {
-	if(i==1)window.location.href="userinfo.jsp?uid="+s;
+	if(i==1)window.location.href="user_info.jsp?uid="+s;
 }
 function Init_fail(i) {
     if(i==1){

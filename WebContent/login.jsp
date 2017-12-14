@@ -6,11 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.*,java.sql.*"%> 
+<jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
 <%
     String user_id = (String)session.getAttribute("user_id");//用户id
     Integer flag=0; //已经登录自动转跳
     if(user_id!=null)flag=1;
-
     /**
      * 表单中有的信息
      * user 用户名
@@ -18,28 +19,58 @@
      * val 验证码结果 true or false
      */
     String user,passwd,val,login,init;
+    String sql = null;
+    ResultSet rs = null;
 
     user=request.getParameter("user");
     passwd=request.getParameter("password");
     val=request.getParameter("val");
     login=request.getParameter("login");
     init=request.getParameter("init");
-
+    
     Integer login_flag=-1,Init_fail=0;
     if(login==null&&init!=null){
         //注册 转到用户信息界面要求用户填详细信息  记得给session 赋值
-
-
-        if(val.equals("false"))login_flag=1;//验证码不正确
-        if(false)//如果用户已经存在则保留在原网页
-            Init_fail=1;
+        if (user==null || user!=null&&user.trim()=="" || passwd==null || passwd!=null&&passwd.trim()==""){
+        	out.print("<script>alert('用户名或密码不能为空！'); </script>");
+        }
+        else if(val.equals("false"))login_flag=1;//验证码不正确
+        else {
+    		rs = Userdb.queryByAccount(user);
+    		if (rs.next())Init_fail=1; //如果用户已经存在则保留在原网页
+    		else{ //成功注册
+    			sql = "insert into User (account, password, permission) values ('" +
+    				  user + "','" + passwd + "', 0)";
+    			Userdb.insert(sql);
+    			rs = Userdb.queryByAccount(user);
+    			user_id = String.valueOf(rs.getInt("uid"));
+    			session.setAttribute("user_id",  user_id);
+    			flag = 1;
+    			out.print("<script>alert('成功注册！');</script>");
+    		}
+        }
     }
     else if(login!=null&&init==null){
         //登录 数据库判断 记得给session 赋值
-
-        if(val.equals("false"))login_flag=1;//验证码不正确
-        else if(true)login_flag=2;//用户存在且密码匹配
-        else login_flag=0;
+    	if (user==null || user!=null&&user.trim()=="" || passwd==null || passwd!=null&&passwd.trim()==""){
+        	out.print("<script>alert('用户名或密码不能为空！'); </script>");
+        }
+    	else if(val.equals("false"))login_flag=1;//验证码不正确
+    	else{
+			rs = Userdb.queryByAccount(user);
+			if (rs.next()){
+				String real_passwd = rs.getString("password");
+        		if (real_passwd.equals(passwd)){
+        			login_flag=2;       //用户存在且密码匹配
+        			user_id = String.valueOf(rs.getInt("uid"));
+        			session.setAttribute("user_id", user_id);
+        			flag = 1;
+        			out.print("<script>alert('成功登陆！');</script>");
+        		}
+        		else login_flag=0;
+			}
+        	else login_flag=0;
+    	}
     }
 %>
 <!doctype html>
@@ -105,12 +136,12 @@
 <div id="outer_background">
     <div id="background">
         <form id="load_info" action="login.jsp" method="get">
-            <p><input type="text" class="input_12" id="user" placeholder="用户名" onClick="inputin(1)"></p>
-            <p><input type="text" class="input_12" id="password"  placeholder="密码" onClick="inputin(2)"></p>
+            <p><input type="text" class="input_12" id="user" name="user" placeholder="用户名" onClick="inputin(1)"></p>
+            <p><input type="text" class="input_12" id="password" name="password"  placeholder="密码" onClick="inputin(2)"></p>
             <p><input type="button" id="code" onclick="createCode()">
                 <input type="text" id="checkcode"  onBlur="validate()">
                 <i id="checkicon" class="fa fa-check"></i></p>
-            <input type="text" name="val"  value="false" hidden>
+            <input type="text" name="val"  id="val" value="false" hidden="hidden">
             <input type="submit" name="login" class="input_34" id="button_left" value="登录" >
             <input type="submit" name="init" class="input_34" value="注册" id="button_right">
         </form>

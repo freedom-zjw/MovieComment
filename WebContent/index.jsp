@@ -6,11 +6,20 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.*,java.sql.*"%> 
+<jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
 <%
     String user_id = (String)session.getAttribute("user_id");//用户id
     String Login="Login";//登陆后显示用户名
     String Login_src="login.jsp";
-    if(user_id!=null)Login_src="userinfo.jsp";
+    if(user_id!=null){
+    	ResultSet rs = Userdb.queryById(Integer.parseInt(user_id, 10));
+    	Login_src="user_info.jsp";
+    	while (rs.next()){
+    		Login = String.valueOf(rs.getString("account"));
+    		break;
+    	}
+    }
 
     String display_src[]={"tmp.jpg","onesheet.jpg","tmp.jpg","onesheet.jpg"};//4个 16:9的图片
     String display_id[]={"1","2","3","4"};//上面4个对应的id
