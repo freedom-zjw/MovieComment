@@ -8,7 +8,7 @@
     String Login="Loign";//登陆后显示用户名
     Integer permissions=0;//用户权限 0普通1管理员
     String Login_src="login.jsp";
-    if(user_id!=null)Login_src="userinfo.jsp";
+    if(user_id!=null)Login_src="user_info.jsp";
     /**
      * 发表评论
      * mid=1&content=&level=5&file=&submit=OK

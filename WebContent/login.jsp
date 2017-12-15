@@ -45,6 +45,7 @@
     			rs = Userdb.queryByAccount(user);
     			user_id = String.valueOf(rs.getInt("uid"));
     			session.setAttribute("user_id",  user_id);
+    			session.setAttribute("account",  user);
     			flag = 1;
     			out.print("<script>alert('成功注册！');</script>");
     		}
@@ -64,6 +65,7 @@
         			login_flag=2;       //用户存在且密码匹配
         			user_id = String.valueOf(rs.getInt("uid"));
         			session.setAttribute("user_id", user_id);
+        			session.setAttribute("account",  user);
         			flag = 1;
         			out.print("<script>alert('成功登陆！');</script>");
         		}

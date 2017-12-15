@@ -13,12 +13,8 @@
     String Login="Login";//登陆后显示用户名
     String Login_src="login.jsp";
     if(user_id!=null){
-    	ResultSet rs = Userdb.queryById(Integer.parseInt(user_id, 10));
+    	Login = (String)session.getAttribute("account");
     	Login_src="user_info.jsp";
-    	while (rs.next()){
-    		Login = String.valueOf(rs.getString("account"));
-    		break;
-    	}
     }
 
     /**
