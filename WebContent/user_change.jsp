@@ -17,9 +17,11 @@
     String Login="Login";//登陆后显示用户名
     String Login_src="login.jsp";
     ResultSet rs = null;
+    String name="",sex="",info="",hobby="",img_src="";
     if(user_id!=null){
     	Login = (String)session.getAttribute("account");
     	Login_src="user_info.jsp";
+    	sex = (String)session.getAttribute("sex");
     }
     else{
     	response.sendRedirect("login.jsp");
@@ -28,39 +30,61 @@
     /**
      * 提交之后获取
      */
-    String name="",sex="",info="",hobby="",img_src="";
     String method = request.getMethod();
 	boolean post = method.equalsIgnoreCase("post");
 	if (post){
 		 boolean isMultipart = ServletFileUpload.isMultipartContent(request);//检查表单中是否包含文件
 		 if (isMultipart) {
-			/*
+	    	rs = Userdb.queryByAccount(Login);
+	    	rs.next();
 			FileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
 			List items = upload.parseRequest(request);
 			for (int i = 0; i < items.size(); i++) {
 				FileItem fi = (FileItem) items.get(i);
-				if (fi.isFormField()){//如果是表单字段
-						preName = fi.getString("utf-8") + "_";
-				}
-				else{
+				if (i==0){//图片文件
 					DiskFileItem dfi = (DiskFileItem) fi;
-					if (!dfi.getName().trim().equals("")) {//getName()返回文件名称或空串
-						out.print("文件被上传到服务上的实际位置： ");
-						fileName = preName + FilenameUtils.getName(dfi.getName());
-						String filepath=application.getRealPath("/temp/files")
-									 + System.getProperty("file.separator") //获取系统文件分隔符
-									 + fileName;
-						fileURL = "<a href=\"" + "temp/files/" + fileName + "\">" +fileName + "</a>";
-						out.println(new File(filepath).getAbsolutePath());
+					if (!dfi.getName().trim().equals("")) {
+						String fileName = user_id + ".png";
+						String filepath=application.getRealPath("/temp/UserPhotos");
+						File FileDir = new File(filepath);
+						if (!FileDir.exists()){
+							FileDir.mkdirs();
+						}
+						filepath =  filepath
+								 + System.getProperty("file.separator") //获取系统文件分隔符
+								 + fileName;
+						System.out.println(filepath);
+						img_src = "temp/UserPhotos/" + fileName;
 						dfi.write(new File(filepath));
 					}
+					else img_src = rs.getString("Image_src");
+				}
+				else if(i==1){
+					name = fi.getString("utf-8").trim();
+					if (name.equals(""))name = rs.getString("name");
+				}
+				else if (i==2){
+					info = fi.getString("utf-8").trim();
+					if (info.equals(""))info = rs.getString("info");
+				}
+				else if (i==3){
+					sex = fi.getString("utf-8").trim();
+					if (sex.equals(""))sex = rs.getString("sex");
+				}
+				else if (i==4){
+					hobby= fi.getString("utf-8").trim();
+					if (hobby.equals(""))hobby = rs.getString("name");
 				}
 			}
-			*/
-		 }
-		 else{
-			 
+			String sql = "update User set name='" + name
+					      + "', info='" + info
+					      + "', sex='" + sex
+					      + "', hobby='" + hobby
+					      + "', Image_src='" + img_src
+					      + "' where account='" + Login + "'";
+  			Userdb.update(sql);
+  			out.print("<script>alert('修改成功！');</script>");
 		 }
 	}
     		
