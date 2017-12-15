@@ -68,3 +68,40 @@ function setImagePreview() {
     }
 
 }
+function photoDisplay(){
+    document.getElementById("photo_outer").style.display = "block";
+    var h=document.getElementById("photos").height/2;
+
+    document.getElementById("prebtn").style.top=h+10+"px";
+    document.getElementById("nextbtn").style.top=h+10+"px";
+}
+function photoclose(){
+    document.getElementById("photo_outer").style.display = "none";
+}
+function movemainphoto(){
+    document.getElementById("morephoto").style.display = "block";
+}
+function outmainphoto(){
+    document.getElementById("morephoto").style.display = "none";
+
+}
+function nextPhoto() {
+    if(photo_pos<photo_src.length-1){
+        photo_pos=photo_pos+1;
+        document.getElementById("photos").src=photo_src[photo_pos];
+        var h=document.getElementById("photos").height/2;
+
+        document.getElementById("prebtn").style.top=h+10+"px";
+        document.getElementById("nextbtn").style.top=h+10+"px";
+    }
+}
+function prePhoto() {
+    if(photo_pos>0){
+        photo_pos=photo_pos-1;
+        document.getElementById("photos").src=photo_src[photo_pos];
+        var h=document.getElementById("photos").height/2;
+
+        document.getElementById("prebtn").style.top=h+10+"px";
+        document.getElementById("nextbtn").style.top=h+10+"px";
+    }
+}

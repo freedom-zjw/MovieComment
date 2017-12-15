@@ -5,7 +5,7 @@
 %>
 <%
 	String user_id = (String)session.getAttribute("user_id");//用户id
-    String Login="Loign";//登陆后显示用户名
+    String Login="Login";//登陆后显示用户名
     Integer permissions=0;//用户权限 0普通1管理员
     String Login_src="login.jsp";
     if(user_id!=null)Login_src="user_info.jsp";
@@ -66,6 +66,8 @@
 	String[] floor_No=new String[5];//楼层编号
 	String[] user_time=new String[5];//用户评论时间
 	Integer[] user_star=new Integer[5];//该用户评星
+	String[] photos=new String[]{"image/bk_login.png",""};//剧照
+	
     //修改这些
     Integer pgno = 0; //当前页号翻页用
     String param = request.getParameter("pgno");
@@ -106,16 +108,23 @@
 <html  lang="zh-cn">
 <head>
     <meta charset="utf-8">
-    <title>Info</title>
+    <title>Movie_Info_<%=title_call_to_movie %></title>
 
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <link rel="stylesheet" type="text/css" href="css/info.css" />
     <link rel="stylesheet" type="text/css" href="css/header.css">
     <script src="js/info.js"></script>
+    <script src="js/header.js"></script>
     <style>
     </style>
     <script>
-
+	    var photo_pos=0;
+	    var photo_src=new Array();
+	    <%
+	        for(int i=0;i<photos.length;i++){
+	            out.print("photo_src["+String.valueOf(i)+"]=\""+photos[i]+"\";");
+	        }
+	    %>
     </script>
 </head>
 <body >
@@ -126,8 +135,9 @@
 
 <div id="header_outer">
     <div id="header" class="wrapper">
-        <p>网站名字啊</p>
-        <a href="<%=Login_src%>"><i class="fa fa-user-circle-o"></i> <%=Login%></a>
+        <p>GoodMovie</p>
+        <a href="<%=Login_src%>" id="logins" onMouseMove="moveLogin('<%=Login%>')" onMouseOut="outLogin('<%=Login%>')"><i class="fa fa-user-circle-o"></i> <%=Login%></a>
+        <a href="index.jsp?logout=true" id="logout" onMouseMove="moveLogin('<%=Login%>')" onMouseOut="outLogin('<%=Login%>')">退出</a>
     </div><!--header-->
 </div> <!--header_outer-->
 
@@ -166,6 +176,16 @@
     </div>
 </div>
 
+<div id="photo_outer">
+    <div id="photodisplay">
+        <button onclick="photoclose()" id="closebtn0">&times;</button>
+        <i onclick="prePhoto()" id="prebtn" class="fa fa-chevron-left btn"></i>
+        <i onclick="nextPhoto()" id="nextbtn" class="fa fa-chevron-right btn"></i>
+        <div id="photo_content">
+            <img id="photos" src="<%=photos[0]%>">
+        </div>
+    </div>
+</div>
 
 <div id="info_main">
     <div id="info_inner">
@@ -173,12 +193,14 @@
         <h3><%=tagline%></h3>
         <p id="score"><%=score%></p>
         <p id="dates">上映日期：<%=movie_date%></p>
-        <img id="info_img" src="<%=movie_src%>" id="info_inner_img">
+        <img id="info_img" src="<%=movie_src%>" id="info_inner_img" onMouseMove="movemainphoto()" onMouseOut="outmainphoto()">
         <div id="info_text">
             <%=movie_introduction%>
         </div>
+        <a id="morephoto" onClick="photoDisplay()" onMouseMove="movemainphoto()" onMouseOut="outmainphoto()">MORE</a>
     </div>
 </div>
+
 <div id="display_outer">
     <div id="imagedisplay">
         <button onclick="closeModal()" id="closebtn">&times;</button>
@@ -187,6 +209,8 @@
         </div>
     </div>
 </div>
+
+
 <div id="comment_outer">
     <div id="comment">
         <p id="num_of_comments"><%=num_comment%>评论</p>

@@ -85,6 +85,7 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <link href="css/load.css" rel="stylesheet" type="text/css">
     <script src="js/login.js"></script>
+    <script src="js/header.js"></script>
     <style>
     </style>
 </head>
@@ -95,10 +96,11 @@
 
 <div id="header_outer">
     <div id="header" class="wrapper">
-        <p>网站名字啊</p>
+        <p>GoodMovie</p>
         <a href="login.jsp"><i class="fa fa-user-circle-o"></i> Login</a>
     </div><!--header-->
 </div> <!--header_outer-->
+
 
 <div id="nav_outer">
     <div id="nav_in" class="wrapper">

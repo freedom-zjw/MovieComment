@@ -17,7 +17,13 @@
     	Login = (String)session.getAttribute("account");
     	Login_src="user_info.jsp";
     }
-
+	
+    String Logout="";
+    Logout=request.getParameter("logout");
+    if(Logout.equals("true")){
+    	///////退出
+    }
+    
     String display_src[]={"tmp.jpg","onesheet.jpg","tmp.jpg","onesheet.jpg"};//4个 16:9的图片
     String display_id[]={"1","2","3","4"};//上面4个对应的id
     String featured_img_src[]={"onesheet.jpg","onesheet.jpg","onesheet.jpg","onesheet.jpg"};//精选图片
@@ -35,10 +41,11 @@
 <html  lang="zh-cn">
 <head>
     <meta charset="utf-8">
-    <title>xxxxx</title>
+    <title>GoodMovie</title>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <link rel="stylesheet" type="text/css" href="css/index_.css" />
     <link rel="stylesheet" type="text/css" href="css/header.css">
+    <script src="js/header.js"></script>
 </head>
 <body>
 <div id="bk_outer">
@@ -47,8 +54,9 @@
 
 <div id="header_outer">
     <div id="header" class="wrapper">
-        <p>网站名字啊</p>
-        <a href="<%=Login_src%>"><i class="fa fa-user-circle-o"></i> <%=Login%></a>
+        <p>GoodMovie</p>
+        <a href="<%=Login_src%>" id="logins" onMouseMove="moveLogin('<%=Login%>')" onMouseOut="outLogin('<%=Login%>')"><i class="fa fa-user-circle-o"></i> <%=Login%></a>
+        <a href="index.jsp?logout=true" id="logout" onMouseMove="moveLogin('<%=Login%>')" onMouseOut="outLogin('<%=Login%>')">退出</a>
     </div><!--header-->
 </div> <!--header_outer-->
 

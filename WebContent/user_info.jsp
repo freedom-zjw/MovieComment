@@ -104,13 +104,15 @@
     <link rel="stylesheet" type="text/css" href="css/header.css" />
     <link rel="stylesheet" type="text/css" href="css/user_info.css" />
     <script src="js/user_info.js"></script>
+    <script src="js/header.js"></script>
 <body>
 
 <div id="header_outer">
-<div id="header" class="wrapper">
-    <p>网站名字啊</p>
-    <a href="<%=Login_src%>"><i class="fa fa-user-circle-o"></i> <%=Login%></a>
-</div><!--header-->
+    <div id="header" class="wrapper">
+        <p>GoodMovie</p>
+        <a href="<%=Login_src%>" id="logins" onMouseMove="moveLogin('<%=Login%>')" onMouseOut="outLogin('<%=Login%>')"><i class="fa fa-user-circle-o"></i> <%=Login%></a>
+        <a href="index.jsp?logout=true" id="logout" onMouseMove="moveLogin('<%=Login%>')" onMouseOut="outLogin('<%=Login%>')">退出</a>
+    </div><!--header-->
 </div> <!--header_outer-->
 
 <div id="nav_outer">

@@ -44,12 +44,23 @@ li {list-style-type:none}
 	font-size: 30px;
 	padding: 10px 30px;
 	color: white;
+	text-shadow: 0px 0px 10px ;
+	font-family: 'Courgette', cursive;
 }
-#header>a{
+#logins{
 	font-size: 20px;
 	padding: 20px 30px;
 	float:right;
 	color: white;
+}
+#logout{
+	position: absolute;
+	right: 30px;
+	top:20px;
+	color: white;
+	height: 20px;
+	font-size: 20px;
+	display: none;
 }
 #nav_outer {
 	height:80px;
