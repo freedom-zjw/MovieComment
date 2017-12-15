@@ -51,7 +51,7 @@
     			session.setAttribute("sex",  rs.getString("sex"));
     			flag = 1;
     			out.print("<script>alert('成功注册！');</script>");
-    			response.sendRedirect("user_info.jsp");
+    			response.sendRedirect("user_change.jsp");
     		}
         }
     }
@@ -70,6 +70,7 @@
         			user_id = String.valueOf(rs.getInt("uid"));
         			session.setAttribute("user_id", user_id);
         			session.setAttribute("account",  user);
+        			session.setAttribute("sex",  rs.getString("sex"));
         			flag = 1;
         			out.print("<script>alert('成功登陆！');</script>");
         		}

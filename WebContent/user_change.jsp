@@ -46,13 +46,15 @@
 					DiskFileItem dfi = (DiskFileItem) fi;
 					if (!dfi.getName().trim().equals("")) {
 						String fileName = user_id + ".png";
-						File FileDir = new File("/temp/UserPhotos");
+						String filepath=application.getRealPath("/temp/UserPhotos");
+						File FileDir = new File(filepath);
 						if (!FileDir.exists()){
-							FileDir.mkdir();
+							FileDir.mkdirs();
 						}
-						String filepath=application.getRealPath("/temp/UserPhotos")
+						filepath =  filepath
 								 + System.getProperty("file.separator") //获取系统文件分隔符
 								 + fileName;
+						System.out.println(filepath);
 						img_src = "temp/UserPhotos/" + fileName;
 						dfi.write(new File(filepath));
 					}
