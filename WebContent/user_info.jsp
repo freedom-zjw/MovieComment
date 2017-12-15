@@ -169,7 +169,7 @@
             <div class="item">
                 <h3 class="list_title">我的通知</h3>
                 <p class="tips" id="info_tag">还没有通知</p>
-                <div class="info_item">
+                <div class="info_item" >
                     <p class="info_name"><%=info_name[0]%></p>
                     <p class="info_data"><%=info_date[0]%></p>
                     <p class="info_content"><%=info_content[0]%></p>
@@ -192,17 +192,17 @@
             <div class="item">
                 <h3 class="list_title">我的评论</h3>
                 <p class="tips" id="commit_tag">还没有评论</p>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=commit_mid[0]%>'">
                     <img class="movie_img_content" src="<%=commit_src[0]%>">
                     <p class="movie_content"><%=commit_content[0]%></p>
                     <p class="movie_name"><%=commit_name[0]%></p>
                 </div>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=commit_mid[1]%>'">
                     <img class="movie_img_content" src="<%=commit_src[1]%>">
                     <p class="movie_content"><%=commit_content[1]%></p>
                     <p class="movie_name"><%=commit_name[1]%></p>
                 </div>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=commit_mid[2]%>'">
                     <img class="movie_img_content" src="<%=commit_src[2]%>">
                     <p class="movie_content"><%=commit_content[2]%></p>
                     <p class="movie_name"><%=commit_name[2]%></p>
@@ -215,17 +215,17 @@
             <div class="item">
                 <h3 class="list_title">我的收藏</h3>
                 <p class="tips" id="like_tag">还没有收藏</p>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=like_mid[0]%>'">
                     <img class="movie_img_content" src="<%=like_src[0]%>">
                     <p class="movie_content"><%=like_content[0]%></p>
                     <p class="movie_name"><%=like_name[0]%></p>
                 </div>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=like_mid[1]%>'">
                     <img class="movie_img_content" src="<%=like_src[1]%>">
                     <p class="movie_content"><%=like_content[1]%></p>
                     <p class="movie_name"><%=like_name[1]%></p>
                 </div>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=like_mid[2]%>'">
                     <img class="movie_img_content" src="<%=like_src[2]%>">
                     <p class="movie_content"><%=like_content[2]%></p>
                     <p class="movie_name"><%=like_name[2]%></p>

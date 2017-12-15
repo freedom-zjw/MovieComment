@@ -49,13 +49,13 @@ function inputworry(flag){
 function inputin(i){
     if(i==1){
         obj=document.getElementById("user");
-        obj.style.background="rgba(255,255,255,0.80)";
+        obj.style.boxShadow="inset 0px 0px 10px gray";
         obj.placeholder="用户名";
         if(obj.placeholder=="用户名与密码不匹配")obj.value="";
     }
     else{
         obj=document.getElementById("password");
-        obj.style.background="rgba(255,255,255,0.80)";
+        obj.style.boxShadow="inset 0px 0px 10px gray";
         obj.placeholder="密码";
         if(obj.placeholder=="用户名与密码不匹配")obj.value="";
     }
@@ -66,12 +66,38 @@ function logined(i,s) {
 function Init_fail(i) {
     if(i==1){
         obj = document.getElementById("user");
-        obj.style.background = "red";
+        obj.style.boxShadow="inset 0px 0px 10px red";
         obj.placeholder = "用户名已存在";
         obj.value = "";
         obj = document.getElementById("password");
-        obj.style.background = "red";
+        obj.style.boxShadow="inset 0px 0px 10px red";
         obj.placeholder = "";
         obj.value = "";
     }
+}
+
+function checkInput(i){
+    var ObjUser=document.getElementById("user");
+    var ObjPW=document.getElementById("password");
+    var oValue = document.getElementById("checkcode").value.toUpperCase();
+    var icon =document.getElementById("checkicon");
+    if(ObjUser.value==""){
+        ObjUser.style.boxShadow="inset 0px 0px 10px red";
+        i.disabled="disabled";
+    }
+    if(ObjPW.value==""){
+    	ObjPW.style.boxShadow="inset 0px 0px 10px red";
+        i.disabled="disabled";
+    }
+    if(oValue != code){
+    	 icon.className="fa fa-close";
+         icon.style.color="red";
+         val.value="false";
+         i.disabled="disabled";
+    }
+}
+function changeInput(i){
+    i.style.boxShadow="inset 0px 0px 5px gray";
+    document.getElementById("login").disabled="";
+    document.getElementById("init").disabled="";
 }
