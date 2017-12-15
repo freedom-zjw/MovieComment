@@ -22,6 +22,7 @@
     	Login = (String)session.getAttribute("account");
     	Login_src="user_info.jsp";
     	sex = (String)session.getAttribute("sex");
+    	img_src = (String)session.getAttribute("Image_src");
     }
     else{
     	response.sendRedirect("login.jsp");
@@ -85,6 +86,8 @@
 					      + "' where account='" + Login + "'";
   			Userdb.update(sql);
   			out.print("<script>alert('修改成功！');</script>");
+			session.setAttribute("sex",  sex);
+			session.setAttribute("Image_src",  img_src);
 		 }
 	}
     		

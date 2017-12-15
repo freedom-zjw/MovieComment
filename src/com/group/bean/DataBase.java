@@ -10,9 +10,13 @@ public class DataBase {
 		 
 		Connection conn = null;   
 		Class.forName("com.mysql.jdbc.Driver");
+		/*
 		String connectString = "jdbc:mysql://blog.chonor.cn:3306/GoodMovie_15352008"
 				+ "?autoReconnect=true&useUnicode=true"
-				+ "&characterEncoding=UTF-8";  
+				+ "&characterEncoding=UTF-8";  */
+		String connectString = "jdbc:mysql://localhost:3306/GoodMovie_15352008"
+				+ "?autoReconnect=true&useUnicode=true"
+				+ "&characterEncoding=UTF-8"; 
 		String user = "user";   
 		String password = "123";  
 		// 根据数据库参数取得一个数据库连接  

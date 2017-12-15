@@ -9,6 +9,7 @@
 <%@ page import="java.util.*,java.sql.*"%>
 <%  request.setCharacterEncoding("utf-8");%> 
 <jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
+<jsp:useBean id="Moviedb" class="com.group.bean.Moviedb" scope="page"/> 
 <%
     String user_id = (String)session.getAttribute("user_id");//用户id
     String Login="Login";//登陆后显示用户名
@@ -22,14 +23,31 @@
     Logout=request.getParameter("logout");
     if(Logout!=null&&Logout.equals("true")){
     	///////退出
+    	session.invalidate();
+    	user_id = null;
+    	Login = "Login";
+    	Login_src="login.jsp";
     }
     
-    String display_src[]={"tmp.jpg","onesheet.jpg","tmp.jpg","onesheet.jpg"};//4个 16:9的图片
-    String display_id[]={"1","2","3","4"};//上面4个对应的id
+    ResultSet display_rs = Moviedb.getDisplay();
+    String display_src[]= {"onesheet.jpg","onesheet.jpg","onesheet.jpg","onesheet.jpg"};//4个 16:9的图片
+    String display_id[]={"1","2","3","4"};//上面4个对应的mid
+    for (int i=0; i<4; i++){
+    	display_rs.next();
+		display_src[i] = display_rs.getString("src");
+		display_id[i] = display_rs.getString("mid");
+    }
+    
+    ResultSet featured_rs = Moviedb.getFeatured();
     String featured_img_src[]={"onesheet.jpg","onesheet.jpg","onesheet.jpg","onesheet.jpg"};//精选图片
     String featured_name[]={"name1","name2","name3","name4"};//精选电影名
     String featured_id[]={"1","2","3","4"};//精选点击后转跳,只需要填id
-
+    for (int i=0; i<4; i++){
+    	featured_rs.next();
+    	featured_img_src[i] = featured_rs.getString("src");
+    	featured_id[i] = featured_rs.getString("mid");
+    	featured_name[i] = featured_rs.getString("name");
+    }
 
     String today="https://www.youtube.com/embed/vn9mMeWcgoM";//今日推荐
     String today_id="10";//今日推荐点击转跳
