@@ -20,7 +20,7 @@
 	
     String Logout="";
     Logout=request.getParameter("logout");
-    if(Logout.equals("true")){
+    if(Logout!=null&&Logout.equals("true")){
     	///////退出
     }
     
