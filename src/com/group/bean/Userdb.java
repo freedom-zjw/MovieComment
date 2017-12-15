@@ -22,4 +22,9 @@ public class Userdb {
 		DataBase db = new DataBase();
 		db.insert(sql);
 	}
+	
+	public void update(String sql)throws Exception{
+		DataBase db = new DataBase();
+		db.update(sql);
+	}
 }

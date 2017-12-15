@@ -6,19 +6,64 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.io.*, java.util.*,java.sql.*,org.apache.commons.io.*"%>
+<%@ page import="org.apache.commons.fileupload.*"%>
+<%@ page import="org.apache.commons.fileupload.disk.*"%>
+<%@ page import="org.apache.commons.fileupload.servlet.*"%>
+<%  request.setCharacterEncoding("utf-8");%>
+<jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
 <%
     String user_id = (String)session.getAttribute("user_id");//用户id
     String Login="Login";//登陆后显示用户名
     String Login_src="login.jsp";
-    if(user_id!=null)Login_src="user_info.jsp";
+    ResultSet rs = null;
+    if(user_id!=null){
+    	Login = (String)session.getAttribute("account");
+    	Login_src="user_info.jsp";
+    }
+    else{
+    	response.sendRedirect("login.jsp");
+    }
 
     /**
      * 提交之后获取
      */
     String name="",sex="",info="",hobby="",img_src="";
-
-
-
+    String method = request.getMethod();
+	boolean post = method.equalsIgnoreCase("post");
+	if (post){
+		 boolean isMultipart = ServletFileUpload.isMultipartContent(request);//检查表单中是否包含文件
+		 if (isMultipart) {
+			/*
+			FileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			List items = upload.parseRequest(request);
+			for (int i = 0; i < items.size(); i++) {
+				FileItem fi = (FileItem) items.get(i);
+				if (fi.isFormField()){//如果是表单字段
+						preName = fi.getString("utf-8") + "_";
+				}
+				else{
+					DiskFileItem dfi = (DiskFileItem) fi;
+					if (!dfi.getName().trim().equals("")) {//getName()返回文件名称或空串
+						out.print("文件被上传到服务上的实际位置： ");
+						fileName = preName + FilenameUtils.getName(dfi.getName());
+						String filepath=application.getRealPath("/temp/files")
+									 + System.getProperty("file.separator") //获取系统文件分隔符
+									 + fileName;
+						fileURL = "<a href=\"" + "temp/files/" + fileName + "\">" +fileName + "</a>";
+						out.println(new File(filepath).getAbsolutePath());
+						dfi.write(new File(filepath));
+					}
+				}
+			}
+			*/
+		 }
+		 else{
+			 
+		 }
+	}
+    		
     Integer sex_int=2;
     if(sex.equals("man"))sex_int=0;
     else if(sex.equals("woman"))sex_int=1;

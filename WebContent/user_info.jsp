@@ -7,14 +7,21 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*,java.sql.*"%> 
+<%  request.setCharacterEncoding("utf-8");%>
 <jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
 <%
     String user_id = (String)session.getAttribute("user_id");//用户id
     String Login="Login";//登陆后显示用户名
     String Login_src="login.jsp";
+    ResultSet rs = null;
     if(user_id!=null){
     	Login = (String)session.getAttribute("account");
     	Login_src="user_info.jsp";
+    	rs = Userdb.queryByAccount(Login);
+    	rs.next();
+    }
+    else{
+    	response.sendRedirect("login.jsp");
     }
 
     /**
@@ -25,7 +32,12 @@
     name="名字";
     info="简介";
     hobby="爱好";
-
+	if (user_id!=null){
+		name = rs.getString("name");
+		info = rs.getString("info");
+		hobby = rs.getString("hobby");
+		img_src = rs.getString("Image_src");
+	}
     /**
      * 通知数据库
      *
