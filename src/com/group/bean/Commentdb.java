@@ -61,6 +61,29 @@ public class Commentdb {
 		return rs;
 	}
 	
+	public String insertNewComment(String mid, String uid, String info, String score, String src, String Comment_src) throws Exception {
+		String sql = "insert into comments (mid, uid, info, score, commentTime, src, comment_src) values ("
+				     + mid + ", "
+				     + uid + ", "
+				     + "'" + info + "', "
+				     + score + ", "
+				     + "NOW(), "
+				     + "'" + src + "', "
+				     + "'" + Comment_src + "')";
+		db.insert(sql);
+		sql = "select convert(avg(score),decimal(10,1)) as score_avg from comments where mid=" + mid;
+		ResultSet rs=db.select(sql);
+		String score_avg="";
+		if (rs.next()) {
+			score_avg = rs.getString("score_avg");
+			sql = "update movie set score=" + score_avg + " where mid=" + mid;
+			db.update(sql);
+		}
+		rs.close();
+		close();
+		return score_avg;
+	}
+	
 	public void close()throws Exception  {
 		db.Close();
 	}
