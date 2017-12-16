@@ -20,6 +20,7 @@ public class Likedb {
 				     + "movie.info as info, "
 				     + "movie.src as image_src, "
 				     + "movie.name as name "
+				     + "likes.mid as mid, "
 					 + "from likes, movie  "
 					 + "where likes.uid=" + uid + " "
 					 + "and movie.mid=likes.mid "

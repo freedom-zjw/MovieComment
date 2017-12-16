@@ -78,7 +78,7 @@
     String commit_name[]={"评论1","评论2","评论3"};
     String commit_content[]={"内容1","内容2","内容3"};
     String commit_src[]={"图1","图2","图3"};
-    //String commit_mid[]={"","",""};
+    String commit_mid[]={"","",""};
     Integer commit_pgno = 0; //当前评论页号
     String param2 = request.getParameter("commit_pgno");
     if(param2 != null && !param2.isEmpty()){
@@ -92,6 +92,7 @@
     	commit_name[commit_cnt] = commit_rs.getString("name");
     	commit_content[commit_cnt] = commit_rs.getString("info");
     	commit_src[commit_cnt] = commit_rs.getString("image_src");
+    	commit_mid[commit_cnt] = String.valueOf(commit_rs.getInt("mid"));
     	commit_cnt += 1;
     }
     commit_rs.close();
@@ -106,7 +107,7 @@
     String like_name[]={"收藏1","收藏2","收藏3"};
     String like_content[]={"内容1","内容2","内容3"};
     String like_src[]={"图1","图2","图3"};
-    //String like_mid[]={"","",""};
+    String like_mid[]={"","",""};
     Integer like_pgno = 0; //当前收藏页号
     String param3 = request.getParameter("like_pgno");
     if(param3 != null && !param3.isEmpty()){
@@ -119,6 +120,7 @@
     	like_name[like_cnt] = like_rs.getString("name");
     	like_content[like_cnt] = like_rs.getString("info");
     	like_src[like_cnt] = like_rs.getString("image_src");
+    	like_mid[like_cnt] = String.valueOf(like_rs.getInt("mid"));
     	like_cnt += 1;
     }
     like_rs.close();

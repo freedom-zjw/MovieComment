@@ -1,6 +1,6 @@
 User(uid,account, password, name,sex, info,Image_src(头像),hobby,permissions(1为管理员，0为普通用户)) 
 电影movie(mid,name,info,tag(标签，就是二级标题),ReleaseTime(上映时间),src(封面), score()评分, Type(movie or TV), hot(0表示不是时下流行，1是时下流行), ) 
-评论comments(cid,mid,uid,info(评论内容）,score(给出的评分),commentTime(评论时间),src(评论图片地址))
+评论comments(cid,mid,uid,info(评论内容）,score(给出的评分),commentTime(评论时间),src(影片封面),comment_src(用户自己上传的评论图片))
 通知information(iid,uid,info,inforTime(发布通知时间),title(通知标题))
 剧照stagephoto(pid, mid，src)
 收藏likes(lid,uid,mid)
@@ -43,7 +43,8 @@ create table comments(
 	info varchar(1000),
 	score float(2,1),
 	commentTime DATETIME,
-	src varchar(500) references movie(src) on delete cascade
+	src varchar(500) references movie(src) on delete cascade,
+	comment_src varchar(500)
 )default charset=utf8;
 
 create table information(

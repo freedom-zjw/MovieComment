@@ -10,8 +10,8 @@ public class Commentdb {
 		db = new DataBase();
 	}
 	
-	public ResultSet queryByMid(int mid)throws Exception { 
-		String sql = "select * from comments where mid=" +  mid;
+	public ResultSet queryByMid(String mid)throws Exception { 
+		String sql = "select * from comments where mid=" +  mid + "order by commentTime desc";
 		ResultSet rs =db.select(sql);
 		return rs;
 	}
@@ -23,6 +23,8 @@ public class Commentdb {
 		if (rs.next()) {
 			cnt = rs.getInt(1);
 		}
+		rs.close();
+		close();
 		return String.valueOf(cnt);
 	}
 	
@@ -31,6 +33,7 @@ public class Commentdb {
 				     + "comments.info as info, "
 				     + "comments.commentTime as commentTime, "
 				     + "comments.src as image_src, "
+				     + "comments.mid as mid, "
 				     + "movie.name as name "
 					 + "from comments, movie  "
 					 + "where comments.uid=" + uid + " "

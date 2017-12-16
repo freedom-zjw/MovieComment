@@ -27,7 +27,27 @@ public class Moviedb {
 		ResultSet rs =db.select(sql);
 		return rs;
 	}
+	
+	public int getNumOfMovie() throws Exception {
+		String sql = "select count(*) from movie";
+		ResultSet rs =db.select(sql);
+		int cnt = 0;
+		if (rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		rs.close();
+		close();
+		return cnt;
+	}
+	
+	public ResultSet getAll() throws Exception {
+		String sql = "select * from movie order by mid";
+		ResultSet rs =db.select(sql);
+		return rs;
+	}
+	
 	public void close()throws Exception  {
 		db.Close();
 	}
+	
 }

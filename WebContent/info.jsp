@@ -8,6 +8,7 @@
 <jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
 <jsp:useBean id="Moviedb" class="com.group.bean.Moviedb" scope="page"/> 
 <jsp:useBean id="Commentdb" class="com.group.bean.Commentdb" scope="page"/> 
+<jsp:useBean id="Stagedb" class="com.group.bean.Stagedb" scope="page"/> 
 <%
 	String user_id = (String)session.getAttribute("user_id");//用户id
     String Login="Login";//登陆后显示用户名
@@ -56,7 +57,7 @@
     	mid="";
     	response.sendRedirect("index.jsp");
     }
-
+    
     //检索
     ResultSet movie_rs = Moviedb.queryById( Integer.parseInt(mid));
     movie_rs.next();
@@ -70,6 +71,14 @@
     movie_date = movie_rs.getString("ReleaseTime");//上映时间
     movie_rs.close();
     Moviedb.close();
+    
+    String[] photos=new String[]{"image/bk_login.png",""};//剧照
+    ResultSet stage_rs = Stagedb.queryByMid(mid);
+    for (int i=0; i<2; i++){
+    	stage_rs.next();
+    	photos[i] = stage_rs.getString("src");
+    }
+    
     /**
      * 检索评论
      */
@@ -83,7 +92,6 @@
 	String[] floor_No=new String[5];//楼层编号
 	String[] user_time=new String[5];//用户评论时间
 	Integer[] user_star=new Integer[5];//该用户评星
-	String[] photos=new String[]{"image/bk_login.png",""};//剧照
 	
     //修改这些
     Integer pgno = 0; //当前页号翻页用
@@ -93,8 +101,10 @@
     }
     int pgprev = (pgno>0)?pgno-1:0;
     int pgnext = pgno+1;
+    
+    //ResultSet com_rs = Commentdb.queryByMid(mid);
     //检索并且赋值
-    Integer info_cnt=5; //当前界面信息数  最大为5 最小1  重要
+    Integer info_cnt=5; //当前界面信息数  最大为5 最小0  重要
     for(int i=0;i<info_cnt;i++){
         user_name[i]="用户"+(i+1);
         user_img[i]="头像2.0.png";
@@ -112,11 +122,28 @@
 	String[] recommend_img=new String[4];//推荐电影的图片
 	String[] recommend_name=new String[4];//推荐电影的名称
     Integer[] recommend_id=new Integer[4];//推荐电影的id
-	for(int i=0;i<4;i++){ //初始化
+    for(int i=0;i<4;i++){ //初始化
 	    recommend_img[i]="推荐.jpg";
 	    recommend_name[i]="Men In Black";
 	    recommend_id[i]=i;
 	}
+    int total = Moviedb.getNumOfMovie();
+    int N = total>4?4:total;
+    ResultSet recommend_rs = Moviedb.getAll();
+    Random rand= new Random();
+    ArrayList<Integer> list = new ArrayList<Integer>();
+	for(int i=0;i<N;i++){
+		recommend_id[i]= rand.nextInt(total) + 1;
+		while (list.contains(recommend_id[i])){
+			list.add(recommend_id[i]);
+		}
+		recommend_rs.absolute(recommend_id[i]);
+		recommend_img[i] = recommend_rs.getString("src");
+		recommend_name[i] = recommend_rs.getString("name");
+	}
+	recommend_rs.close();
+	Moviedb.close();
+
 
 
 
