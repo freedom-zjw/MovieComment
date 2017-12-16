@@ -9,11 +9,22 @@
 <%@ page import="java.util.*,java.sql.*"%>
 <%  request.setCharacterEncoding("utf-8");%> 
 <jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
- 
+<jsp:useBean id="Moviedb" class="com.group.bean.Moviedb" scope="page"/> 
+<jsp:useBean id="Commentdb" class="com.group.bean.Commentdb" scope="page"/> 
 <%
-    String user_id = (String)session.getAttribute("user_id");//用户id
-    String Login="Login";//登陆后显示用户名
-    String Login_src="login.jsp";
+	String user_id = (String)session.getAttribute("user_id");//用户id
+	String Login="Login";//登陆后显示用户名
+	String Login_src="login.jsp";
+	ResultSet rs = null;
+	if(user_id!=null){
+		Login = (String)session.getAttribute("account");
+		Login_src="user_info.jsp";
+		rs = Userdb.queryByAccount(Login);
+		rs.next();
+	}
+	else{
+		response.sendRedirect("login.jsp");
+	}
    
 
 
@@ -86,8 +97,8 @@
     <link rel="stylesheet" type="text/css" href="css/header.css" />
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <link rel="stylesheet" type="text/css" href="css/Console.css" />
-    <script src="js/console.js"></script>
-    <script src="js/header.js"></script>
+    <script type="text/javascript" src="js/console.js"></script>
+    <script type="text/javascript" src="js/header.js"></script>
     <title>Console</title>
 </head>
 

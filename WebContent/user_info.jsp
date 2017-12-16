@@ -31,15 +31,18 @@
      * 个人信息类
      * 数据库拿到
      */
-    String name,info,hobby,img_src="image/main_logo.png";//头像;
+    String name,info,hobby,img_src="image/main_logo.png";
+    int permission = 0;//头像;
     name="名字";
     info="简介";
     hobby="爱好";
+    
 	if (user_id!=null){
 		name = rs.getString("name");
 		info = rs.getString("info");
 		hobby = rs.getString("hobby");
 		img_src = rs.getString("Image_src");
+		premission = rs.getInt("permission");
 	}
 	rs.close();
 	Userdb.close();
@@ -188,7 +191,7 @@
 <div id="userInfo_outer">
     <div id="list">
         <div id="user_info">
-            <img  id="user_img" src="<%=img_src%>">
+            <img  id="user_img" src="<%=img_src%>" onclick="ToConsole(<%=permission%>)">
             <p id="user_name"><%=name%></p>
             <div id="user_introduct" class="user_introduct">
                 <h3 class="title3">个人简介</h3>

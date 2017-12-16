@@ -110,8 +110,8 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <link href="css/header.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/user_change.css" />
-    <script src="js/face_preview.js"></script>
-    <script src="js/header.js"></script>
+    <script type="text/javascript" src="js/face_preview.js"></script>
+    <script type="text/javascript" src="js/header.js"></script>
     <script type="text/javascript" src="js/user_change.jsp"></script>
     <style>
 

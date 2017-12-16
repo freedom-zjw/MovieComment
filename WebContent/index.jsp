@@ -53,9 +53,9 @@
     featured_rs.close();
     Moviedb.close();
 	
-    String today="https://www.youtube.com/embed/vn9mMeWcgoM";//今日推荐
-    String today_id="10";//今日推荐点击转跳
-    String today_name=".....";//今日推荐名字
+    String today="movie/videoplayback.mp4";//今日推荐
+    String today_id="2";//今日推荐点击转跳
+    String today_name="Coco";//今日推荐名字
     String today_info="";//今日推荐的简介
     String today_src="";//今日推荐的图片
 %>
@@ -151,7 +151,7 @@
     <div id="today">
         <hr>
         <a href="info.jsp?mid=<%=today_id%>">今日推荐：<%=today_name%></a>
-        <iframe width="800" height="400" src="<%=today%>" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+        <video autoplay="autoplay" loop="loop" src="<%=today%>"></video>
     </div>
 </div>
 
