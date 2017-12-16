@@ -22,6 +22,10 @@ public class DataBase {
 		String connectString = "jdbc:mysql://45.32.49.48:3306/GoodMovie_15352008"
 				+ "?autoReconnect=true&useUnicode=true"
 				+ "&characterEncoding=UTF-8"; */
+		/*
+		String connectString = "jdbc:mysql://172.18.187.234:53306/GoodMovie_15352008"
+				+ "?autoReconnect=true&useUnicode=true"
+				+ "&characterEncoding=UTF-8"; */
 		String connectString = "jdbc:mysql://localhost:3306/GoodMovie_15352008"
 				+ "?autoReconnect=true&useUnicode=true"
 				+ "&characterEncoding=UTF-8"; 

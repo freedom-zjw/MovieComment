@@ -23,7 +23,7 @@
     if(user_id!=null){
     	Login_src="user_info.jsp";
     	Login = (String)session.getAttribute("account");
-    	permissions = (Integer)session.getAttribute("permission");
+    	permissions = (Integer)session.getAttribute("permissions");
     	my_img = (String)session.getAttribute("Image_src"); //已登录用户的头像(就是准备发布评论的人的头像)
     }
     
@@ -89,7 +89,6 @@
  				for (int i = 0; i < items.size(); i++) {
  					FileItem fi = (FileItem) items.get(i);
  					if (fi.isFormField()){
- 						System.out.println(i + ": " + fi.getString("utf-8"));
  						if (i==0) com_mid = fi.getString("utf-8");
  						else if (i==1) com_info = fi.getString("utf-8");
  						else if (i==2) com_score = fi.getString("utf-8");
@@ -131,10 +130,8 @@
         if(user_id!=null && user_commit_id.equals(user_id)||permissions==1){
             //向通知表中插入title 你的评论被删除 info:被管理员删除/被自己删除  time 当前时间
             String delete_info="";
-            if (permissions == 1)delete_info = "被管理员删除";
-            else delete_info = "被自己删除";
-            Informdb.insertDelete(deleted_id, user_commit_id, "你的评论被删除", delete_info);
-          
+            if (permissions == 1)Informdb.insertDelete(deleted_id, user_commit_id, "你的评论被删除", "被管理员删除");
+            else Informdb.insertDelete(deleted_id, user_commit_id, "你的评论被删除", "被自己删除");
             //删除评论
             Commentdb.deleteByCid(deleted_id);
         }
@@ -244,6 +241,7 @@
 		recommend_rs.absolute(recommend_id[i]);
 		recommend_img[i] = recommend_rs.getString("src");
 		recommend_name[i] = recommend_rs.getString("name");
+		recommend_id[i] = recommend_rs.getInt("mid");
 	}
 	recommend_rs.close();
 	Moviedb.close();

@@ -31,35 +31,7 @@ function validate(){
     }
 
 }// JavaScript Document
-function inputworry(flag){
-    if(flag==0) {
-        obj = document.getElementById("user");
-        obj.style.background = "red";
-        obj.placeholder = "用户名与密码不匹配";
-        obj.value = "";
-        obj = document.getElementById("password");
-        obj.style.background = "red";
-        obj.placeholder = "用户名与密码不匹配";
-        obj.value = "";
-    }
-    else if(flag==1){
-        document.getElementById("checkicon").className="fa fa-close"
-    }
-}
-function inputin(i){
-    if(i==1){
-        obj=document.getElementById("user");
-        obj.style.boxShadow="inset 0px 0px 10px gray";
-        obj.placeholder="用户名";
-        if(obj.placeholder=="用户名与密码不匹配")obj.value="";
-    }
-    else{
-        obj=document.getElementById("password");
-        obj.style.boxShadow="inset 0px 0px 10px gray";
-        obj.placeholder="密码";
-        if(obj.placeholder=="用户名与密码不匹配")obj.value="";
-    }
-}
+
 function logined(i,s) {
 	if(i==1)window.location.href="user_info.jsp?uid="+s;
 }
@@ -96,8 +68,42 @@ function checkInput(i){
          i.disabled="disabled";
     }
 }
-function changeInput(i){
-    i.style.boxShadow="inset 0px 0px 5px gray";
-    document.getElementById("login").disabled="";
-    document.getElementById("init").disabled="";
+function inputworry(flag){
+    if(flag==0) {
+        obj = document.getElementById("user");
+        obj.style.boxShadow="inset 0px 0px 10px red";
+        obj.placeholder = "用户名与密码不匹配";
+        obj.value = "";
+        obj = document.getElementById("password");
+        obj.style.boxShadow="inset 0px 0px 10px red";
+        obj.placeholder = "用户名与密码不匹配";
+        obj.value = "";
+    }
+    else if(flag==1){
+        document.getElementById("checkicon").className="fa fa-close"
+    }
+}
+function inputin(i){
+	var loginbtn=document.getElementById("button_left");
+    var initbtn=document.getElementById("button_right");
+    if(i==1){
+        obj=document.getElementById("user");
+        obj.style.boxShadow="inset 0px 0px 10px gray";
+        obj.placeholder="用户名";
+        if(obj.placeholder=="用户名与密码不匹配")obj.value="";
+        loginbtn.disabled="";
+        initbtn.disabled="";
+    }
+    else if(i==2){
+        obj=document.getElementById("password");
+        obj.style.boxShadow="inset 0px 0px 10px gray";
+        obj.placeholder="密码";
+        if(obj.placeholder=="用户名与密码不匹配")obj.value="";
+        loginbtn.disabled="";
+        initbtn.disabled="";
+    }
+    else {
+    	 loginbtn.disabled="";
+         initbtn.disabled="";
+    }
 }

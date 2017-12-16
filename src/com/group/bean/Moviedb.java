@@ -21,7 +21,6 @@ public class Moviedb {
 			else if (Chooes.equals("score")) sql += "order by score desc  ";
 		}
 		sql += "limit " +  st +", " + cnt;
-		System.out.println(sql);
 		ResultSet rs =db.select(sql);
 		return rs;
 	}
