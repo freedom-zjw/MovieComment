@@ -110,8 +110,9 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <link href="css/header.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/user_change.css" />
-    <script src="js/face_preview.js"></script>
-    <script src="js/header.js"></script>
+    <script type="text/javascript" src="js/face_preview.js"></script>
+    <script type="text/javascript" src="js/header.js"></script>
+    <script type="text/javascript" src="js/user_change.jsp"></script>
     <style>
 
     </style>
@@ -173,7 +174,8 @@
         </p>
         <p id="name">
             <label>昵称：</label>
-            <input name="name" type="text"  placeholder="新的昵称" value="<%=name%>">
+            <input name="name" type="text"  placeholder="新的昵称" value="<%=name%>" onChange="nameInput()">
+        	<i class="fa fa-close" id="hitInput"><i>昵称不能为空</i></i>
         </p>
         <p id="info">
             <label>简介：</label>
@@ -189,7 +191,7 @@
             <label>爱好：</label>
             <textarea name="info" placeholder="爱好"><%=hobby%></textarea>
         </p>
-        <p id="btn"><input name="save" class="button" type="submit" value="保存">
+        <p id="btn"><input id="save" name="save" class="button" type="submit" value="保存" onMouseMove="checkInput()">
             <button name="clear" class="button" type="reset">复位</button></p>
 
 

@@ -31,15 +31,18 @@
      * 个人信息类
      * 数据库拿到
      */
-    String name,info,hobby,img_src="image/main_logo.png";//头像;
+    String name,info,hobby,img_src="image/main_logo.png";
+    int permission = 0;//头像;
     name="名字";
     info="简介";
     hobby="爱好";
+    
 	if (user_id!=null){
 		name = rs.getString("name");
 		info = rs.getString("info");
 		hobby = rs.getString("hobby");
 		img_src = rs.getString("Image_src");
+		premission = rs.getInt("permission");
 	}
 	rs.close();
 	Userdb.close();
@@ -188,7 +191,7 @@
 <div id="userInfo_outer">
     <div id="list">
         <div id="user_info">
-            <img  id="user_img" src="<%=img_src%>">
+            <img  id="user_img" src="<%=img_src%>" onclick="ToConsole(<%=permission%>)">
             <p id="user_name"><%=name%></p>
             <div id="user_introduct" class="user_introduct">
                 <h3 class="title3">个人简介</h3>
@@ -204,7 +207,7 @@
             <div class="item">
                 <h3 class="list_title">我的通知</h3>
                 <p class="tips" id="info_tag">还没有通知</p>
-                <div class="info_item">
+                <div class="info_item" >
                     <p class="info_name"><%=info_name[0]%></p>
                     <p class="info_data"><%=info_date[0]%></p>
                     <p class="info_content"><%=info_content[0]%></p>
@@ -227,17 +230,17 @@
             <div class="item">
                 <h3 class="list_title">我的评论</h3>
                 <p class="tips" id="commit_tag">还没有评论</p>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=commit_mid[0]%>'">
                     <img class="movie_img_content" src="<%=commit_src[0]%>">
                     <p class="movie_content"><%=commit_content[0]%></p>
                     <p class="movie_name"><%=commit_name[0]%></p>
                 </div>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=commit_mid[1]%>'">
                     <img class="movie_img_content" src="<%=commit_src[1]%>">
                     <p class="movie_content"><%=commit_content[1]%></p>
                     <p class="movie_name"><%=commit_name[1]%></p>
                 </div>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=commit_mid[2]%>'">
                     <img class="movie_img_content" src="<%=commit_src[2]%>">
                     <p class="movie_content"><%=commit_content[2]%></p>
                     <p class="movie_name"><%=commit_name[2]%></p>
@@ -250,17 +253,17 @@
             <div class="item">
                 <h3 class="list_title">我的收藏</h3>
                 <p class="tips" id="like_tag">还没有收藏</p>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=like_mid[0]%>'">
                     <img class="movie_img_content" src="<%=like_src[0]%>">
                     <p class="movie_content"><%=like_content[0]%></p>
                     <p class="movie_name"><%=like_name[0]%></p>
                 </div>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=like_mid[1]%>'">
                     <img class="movie_img_content" src="<%=like_src[1]%>">
                     <p class="movie_content"><%=like_content[1]%></p>
                     <p class="movie_name"><%=like_name[1]%></p>
                 </div>
-                <div class="info_item">
+                <div class="info_item" onclick="location.href='info.jsp?mid=<%=like_mid[2]%>'">
                     <img class="movie_img_content" src="<%=like_src[2]%>">
                     <p class="movie_content"><%=like_content[2]%></p>
                     <p class="movie_name"><%=like_name[2]%></p>

@@ -109,7 +109,7 @@
 <div id="header_outer">
     <div id="header" class="wrapper">
         <p>GoodMovie</p>
-        <a href="login.jsp"><i class="fa fa-user-circle-o"></i> Login</a>
+        <a href="login.jsp"  id="logins"><i class="fa fa-user-circle-o"></i> Login</a>
     </div><!--header-->
 </div> <!--header_outer-->
 
@@ -153,14 +153,14 @@
 <div id="outer_background">
     <div id="background">
         <form id="load_info" action="login.jsp" method="get">
-            <p><input type="text" class="input_12" id="user" name="user" placeholder="用户名" onClick="inputin(1)"></p>
-            <p><input type="text" class="input_12" id="password" name="password"  placeholder="密码" onClick="inputin(2)"></p>
+            <p><input type="text" class="input_12" id="user" name="user" placeholder="用户名" onClick="inputin(1)" onChange="changeInput(this)"></p>
+            <p><input type="text" class="input_12" id="password" name="password"  placeholder="密码" onClick="inputin(2)" onChange="changeInput(this)"></p>
             <p><input type="button" id="code" onclick="createCode()">
                 <input type="text" id="checkcode"  onBlur="validate()">
                 <i id="checkicon" class="fa fa-check"></i></p>
             <input type="text" name="val"  id="val" value="false" hidden="hidden">
-            <input type="submit" name="login" class="input_34" id="button_left" value="登录" >
-            <input type="submit" name="init" class="input_34" value="注册" id="button_right">
+            <input type="submit" name="login" class="input_34" id="button_left" value="登录"  id="login" onMouseMove="checkInput(this)">
+            <input type="submit" name="init" class="input_34" value="注册" id="button_right" id="init" onMouseMove="checkInput(this)">
         </form>
     </div>
 </div>

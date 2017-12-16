@@ -21,3 +21,6 @@ function onstart(cnt1,cnt2,cnt3,cnt4,cnt5,cnt6){
         obj[i].style.display="none";
     }
 }
+function ToConsole(i){
+	if(i==1)location.href="Console.jsp";
+}

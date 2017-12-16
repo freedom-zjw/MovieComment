@@ -69,6 +69,7 @@ body{
     padding: 20px;
     border-radius: 5px;
     box-shadow:inset 0px 0px 10px #dddada,0px 0px 5px #dddada ;
+    overflow-y: scroll;
 }
 
 #comment_outer{

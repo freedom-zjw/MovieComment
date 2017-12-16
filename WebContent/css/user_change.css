@@ -135,7 +135,15 @@ textarea{
 	width: 750px;
 }
 
-
+.fa-close{
+    font-size: 25px;
+    color: red;
+    display: none;
+}
+.fa-close>i{
+    font-size: 20px;
+    color: red;
+}
 .button{
 	border: none;
 	border-radius: 5px;
