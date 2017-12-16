@@ -12,6 +12,7 @@
 <jsp:useBean id="Moviedb" class="com.group.bean.Moviedb" scope="page"/> 
 <jsp:useBean id="Commentdb" class="com.group.bean.Commentdb" scope="page"/> 
 <jsp:useBean id="Stagedb" class="com.group.bean.Stagedb" scope="page"/> 
+<jsp:useBean id="Informdb" class="com.group.bean.Informdb" scope="page"/> 
 <%
 	String user_id = (String)session.getAttribute("user_id");//用户id
     String Login="Login";//登陆后显示用户名
@@ -124,13 +125,24 @@
     String deleted_id= request.getParameter("deleted");
     if(deleted_id!=null){
         String user_commit_id="";//那条评论的用户id
+        ResultSet delete_rs = Commentdb.queryByCid(deleted_id);
+        delete_rs.first();
+        user_commit_id = delete_rs.getString("uid");
         if(user_id!=null && user_commit_id.equals(user_id)||permissions==1){
-            //删除评论
             //向通知表中插入title 你的评论被删除 info:被管理员删除/被自己删除  time 当前时间
+            String delete_info="";
+            if (permissions == 1)delete_info = "被管理员删除";
+            else delete_info = "被自己删除";
+            Informdb.insertDelete(deleted_id, user_commit_id, "你的评论被删除", delete_info);
+          
+            //删除评论
+            Commentdb.deleteByCid(deleted_id);
         }
         else{
         	out.print("<script>alert('你没有权利删除');</script>");
         }
+        delete_rs.close();
+        Commentdb.close();
     }
     /**
      * 举报 评论id
@@ -138,6 +150,21 @@
     String report_id=request.getParameter("report");
     if(report_id!=null){
         //uid先去查评论 用户id 向通知表中插入title 你的评论被举报 info: 你的评论被举报正在等待管理员审核 time 当前时间
+    	String user_commit_id="";
+    	ResultSet report_rs = Commentdb.queryByCid(report_id);
+    	report_rs.first();
+    	user_commit_id = report_rs.getString("uid");
+    	if (user_id != null){
+    		String report_info = "被举报，正在等待管理员审核";
+    		Informdb.insertReportUser(report_id, user_commit_id, "你的评论被举报", report_info);
+    		report_info = "被举报，请审核";
+    		Informdb.insertInformAdmin(report_id, user_commit_id, "用户的评论被举报", report_info);
+    	}
+    	else {
+    		out.print("<script>alert('请先登录再删除');</script>");
+    	}
+        report_rs.close();
+        Commentdb.close();
     }
 
 
