@@ -88,6 +88,8 @@
   			out.print("<script>alert('修改成功！');</script>");
 			session.setAttribute("sex",  sex);
 			session.setAttribute("Image_src",  img_src);
+			rs.close();
+    		Userdb.close();
 		 }
 	}
     		

@@ -38,6 +38,8 @@
 		hobby = rs.getString("hobby");
 		img_src = rs.getString("Image_src");
 	}
+	rs.close();
+	Userdb.close();
     /**
      * 通知数据库
      *

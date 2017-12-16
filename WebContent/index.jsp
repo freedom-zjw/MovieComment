@@ -37,6 +37,8 @@
 		display_src[i] = display_rs.getString("src");
 		display_id[i] = display_rs.getString("mid");
     }
+    display_rs.close();
+    Moviedb.close();
     
     ResultSet featured_rs = Moviedb.getFeatured();
     String featured_img_src[]={"onesheet.jpg","onesheet.jpg","onesheet.jpg","onesheet.jpg"};//精选图片
@@ -48,7 +50,9 @@
     	featured_id[i] = featured_rs.getString("mid");
     	featured_name[i] = featured_rs.getString("name");
     }
-
+    featured_rs.close();
+    Moviedb.close();
+	
     String today="https://www.youtube.com/embed/vn9mMeWcgoM";//今日推荐
     String today_id="10";//今日推荐点击转跳
     String today_name=".....";//今日推荐名字

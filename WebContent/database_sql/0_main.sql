@@ -3,6 +3,7 @@ User(uid,account, password, name,sex, info,Image_src(头像),hobby,permissions(1
 评论comments(cid,mid,uid,info(评论内容）,score(给出的评分),commentTime(评论时间),src(评论图片地址))
 通知information(iid,uid,info,inforTime(发布通知时间),title(通知标题))
 剧照stagephoto(pid, mid，src)
+收藏likes(lid,uid,mid)
 
 
 
@@ -57,6 +58,12 @@ create table stagephoto(
 	pid INT not null AUTO_INCREMENT PRIMARY KEY,
 	mid INT references movie(mid) on delete cascade,
 	src varchar(500) not null
+)default charset=utf8;
+
+create table likes(
+	lid INT not null AUTO_INCREMENT PRIMARY KEY,
+	mid INT references movie(mid) on delete cascade,
+	uid INT references User(uid) on delete cascade
 )default charset=utf8;
 
 Insert into User(account, password, name, Sex, info, Image_src, hobby, permission)

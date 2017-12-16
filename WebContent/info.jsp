@@ -13,11 +13,13 @@
     String Login="Login";//登陆后显示用户名
     Integer permissions=0;//用户权限 0普通1管理员
     String Login_src="login.jsp";
+    String my_img = "image/defaultPhoto.jpg";
     ResultSet user_rs = null;
     if(user_id!=null){
     	Login_src="user_info.jsp";
     	Login = (String)session.getAttribute("account");
     	permissions = (Integer)session.getAttribute("permission");
+    	my_img = (String)session.getAttribute("Image_src"); //已登录用户的头像(就是准备发布评论的人的头像)
     }
     /**
      * 发表评论
@@ -58,15 +60,16 @@
     //检索
     ResultSet movie_rs = Moviedb.queryById( Integer.parseInt(mid));
     movie_rs.next();
-	String title_call_to_movie,tagline,score,movie_src,movie_introduction,num_comment,movie_date,my_img=new String();
+	String title_call_to_movie,tagline,score,movie_src,movie_introduction,num_comment,movie_date=new String();
 	title_call_to_movie = movie_rs.getString("name"); //电影名称
 	tagline = movie_rs.getString("tag"); //二级标题，tag一类的东西
 	score = movie_rs.getString("score"); //电影评分
 	movie_src = movie_rs.getString("src"); //电影图片src
 	movie_introduction = movie_rs.getString("info"); //电影简介
 	num_comment = Commentdb.getComNumsByMid(Integer.parseInt(mid)); //总评论数
-	my_img = (String)session.getAttribute("Image_src"); //已登录用户的头像(就是准备发布评论的人的头像)
     movie_date = movie_rs.getString("ReleaseTime");//上映时间
+    movie_rs.close();
+    Moviedb.close();
     /**
      * 检索评论
      */

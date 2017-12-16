@@ -55,6 +55,8 @@
     			out.print("<script>alert('成功注册！');</script>");
     			response.sendRedirect("user_change.jsp");
     		}
+    		rs.close();
+    		Userdb.close();
         }
     }
     else if(login!=null&&init==null){
@@ -81,6 +83,8 @@
         		else login_flag=0;
 			}
         	else login_flag=0;
+    		rs.close();
+    		Userdb.close();
     	}
     }
 %>
