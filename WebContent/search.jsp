@@ -6,7 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page import="java.util.*,java.sql.*"%>
+<jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
+<jsp:useBean id="Moviedb" class="com.group.bean.Moviedb" scope="page"/> 
+<jsp:useBean id="Likedb" class="com.group.bean.Likedb" scope="page"/> 
+<%  request.setCharacterEncoding("utf-8");%> 
 <%
     String user_id = (String)session.getAttribute("user_id");//用户id
     String Login="Login";//登陆后的名字获取 id->名字 然后把这个改了
@@ -29,7 +33,7 @@
     String Date[]={"",",","","",""};//存放电影上映日期
     String Img_src[]={"","","","",""};//图片路径
     Integer Like[]={0,1,0,1,0};// 存当前用户是否收藏的，0没收藏，1收藏，如果没有用户登录那就全部设置0。
-    Integer List_size=5; //搜到的数目 >5  就=5 因为只有5条
+    Integer List_size = 0; //搜到的数目 >5  就=5 因为只有5条
 
     /**
      * 没登录就无视
@@ -37,11 +41,20 @@
      * Like_change=1变为收藏 =0取消收藏
      * 之后更新数据库
      */
+    
     String Like_mid=request.getParameter("likemid");
     if(Like_mid==null)Like_mid="";
     String Like_change=request.getParameter("like");
     if(Like_change==null)Like_change="";
-
+	if (user_id!=null && Like_mid!="" && Like_change!=""){
+		if (Like_change.equals("0")){
+			Likedb.delete(user_id, Like_mid);
+		}
+		else {
+			Likedb.insert(user_id, Like_mid);
+		}
+		
+	}
     /**
      * 此处根据页号修改
      * 作为搜索条件之一
@@ -95,7 +108,26 @@
     else Chooess[3]="";
     if(Chooes.equals("max")) Chooess[4]="selected";
     else Chooess[4]="";
-
+    
+    ResultSet MovieSearch_rs = Moviedb.Search(types_, Search_info, Chooes, pgno*5, 5);
+    while (MovieSearch_rs.next()){
+    	Name[List_size] = MovieSearch_rs.getString("name");
+    	mid[List_size] = MovieSearch_rs.getString("mid");
+    	Info[List_size] = MovieSearch_rs.getString("info");
+    	Info[List_size] = MovieSearch_rs.getString("score");
+    	Date[List_size] = MovieSearch_rs.getString("ReleaseTime");
+    	Img_src[List_size] = MovieSearch_rs.getString("src");
+    	Like[List_size] = 0;
+    	List_size += 1;
+    }
+    MovieSearch_rs.close();
+    Moviedb.close();
+	if (user_id != null){
+    	for (int i=0; i< List_size; i++){
+    		Like[i] = Likedb.checkLike(user_id, mid[i]);
+    	}
+	}
+    
 %>
 
 

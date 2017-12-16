@@ -31,4 +31,23 @@ public class Likedb {
 		return rs;
 	}
 	
+	public int checkLike(String uid, String mid) throws Exception { 
+		String sql = "select * from likes where uid=" + uid + " and mid=" + mid;
+		int flag = 0;
+		ResultSet rs = db.select(sql);
+		if (rs.next())flag = 1;
+		rs.close();
+		close();
+		return flag;
+	}
+	
+	public void insert(String uid, String mid) throws Exception { 
+		String sql = "insert into likes(mid, uid) values( " + mid + ", " + uid +")";
+		db.insert(sql);
+	}
+	
+	public void delete(String uid, String mid) throws Exception { 
+		String sql = "delete from likes where uid=" + uid + " and mid=" + mid;
+		db.delete(sql);
+	}
 }
