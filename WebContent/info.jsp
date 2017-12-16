@@ -168,17 +168,21 @@
     //检索并且赋值
     Integer info_cnt=0; //当前界面信息数  最大为5 最小0  重要
     ResultSet com_rs = Commentdb.queryByMid(mid, pgno*5, 5);
-    while (com_rs.next()){
+    com_rs.last();
+    int total_com = com_rs.getRow();
+    com_rs.first();
+    for (int i =0; i<total_com; i++){
         user_name[info_cnt] = com_rs.getString("account") + ": " + com_rs.getString("name");
         user_img[info_cnt] = com_rs.getString("user_src");
         comment_id[info_cnt]= com_rs.getString("cid");
         user_comment[info_cnt] = "<br/>" + com_rs.getString("info");
         comment_src[info_cnt] = com_rs.getString("src");//没有显示为""
         if (comment_src[info_cnt] == null)comment_src[info_cnt] = "";
-        floor_No[info_cnt] = "#"+(pgno*5 + 5 - info_cnt);
+        floor_No[info_cnt] = "#"+(pgno*5 + total_com - info_cnt);
         user_time[info_cnt] = com_rs.getString("commentTime");
         user_star[info_cnt] = com_rs.getInt("score");
         info_cnt += 1;
+        com_rs.next();
     }
     com_rs.close();
     Commentdb.close();
