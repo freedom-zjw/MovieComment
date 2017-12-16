@@ -20,4 +20,28 @@ public class Informdb {
 		ResultSet rs =db.select(sql);
 		return rs;
 	}
+	
+	public void insertDelete(String cid, String uid, String title, String info)throws Exception  {
+		String sql0 = "select comments.commentTime as commentTime, "
+				      + "comments.info as info, "
+				      + "movie.Type as Type,"
+				      + "movie.name as name "
+				      + "from comments, movie "
+				      + "where comments.cid=" + cid + " "
+				      + "and movie.mid=comments.mid";
+		ResultSet rs = db.select(sql0);
+		if (rs.next()) {
+			info = "您于 " + rs.getString("commentTime") + " 对 " + rs.getString("Type")
+			       + " <<" + rs.getString("name") + ">> 的评论内容: \"" + rs.getString("info") 
+			       + "\" " + info;
+			rs.close();
+			close();
+		}
+		String sql = "insert into information(uid, info, inforTime, title)values( "
+				    + uid + ", "
+				    + "'" + info +"', "
+				    + "NOW(), "
+				    + "'" + title +"') ";
+		db.insert(sql);		
+	}
 }

@@ -32,6 +32,17 @@ public class Commentdb {
 		return rs;
 	}
 	
+	public ResultSet queryByCid(String cid)throws Exception {
+		String sql = "select * from comments where cid=" + cid;
+		ResultSet rs = db.select(sql);
+		return rs;
+	}
+	
+	public void deleteByCid(String cid)throws Exception {
+		String sql = "delete  from comments where cid=" + cid;
+		db.delete(sql);
+	}
+	
 	public String getComNumsByMid(int mid)throws Exception { 
 		String sql = "select count(*) from comments where mid=" +  mid;
 		ResultSet rs =db.select(sql);
