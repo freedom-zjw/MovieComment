@@ -26,6 +26,7 @@
     }
     else{
     	response.sendRedirect("login.jsp");
+    	return;
     }
 
     /**

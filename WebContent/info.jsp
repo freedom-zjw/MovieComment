@@ -27,7 +27,19 @@
      * mid=1&content=&level=5&file=&submit=OK
      * mid   内容     评分    文件   提交
      */
-    //写一下吧
+    
+    
+    String method = request.getMethod();
+ 	boolean post = method.equalsIgnoreCase("post");
+ 	if (post){
+ 		 if (user_id==null){
+ 			out.print("<script>alert('请先登录再发表评论！');</script>");
+ 		 }
+ 		 else{
+ 			out.print("<script>alert('成功评论！');</script>");
+ 		 }
+ 	}
+    
 
     /**
      * deleted_id 删除的那条评论id
@@ -35,9 +47,12 @@
     String deleted_id= request.getParameter("deleted");
     if(deleted_id!=null){
         String user_commit_id="";//那条评论的用户id
-        if(user_commit_id.equals(user_id)||permissions==1){
+        if(user_id!=null && user_commit_id.equals(user_id)||permissions==1){
             //删除评论
             //向通知表中插入title 你的评论被删除 info:被管理员删除/被自己删除  time 当前时间
+        }
+        else{
+        	out.print("<script>alert('你没有权利删除');</script>");
         }
     }
     /**
@@ -56,10 +71,11 @@
     if(mid==null){
     	mid="";
     	response.sendRedirect("index.jsp");
+    	return;
     }
     
     //检索
-    ResultSet movie_rs = Moviedb.queryById( Integer.parseInt(mid));
+    ResultSet movie_rs = Moviedb.queryById(Integer.parseInt(mid));
     movie_rs.next();
 	String title_call_to_movie,tagline,score,movie_src,movie_introduction,num_comment,movie_date=new String();
 	title_call_to_movie = movie_rs.getString("name"); //电影名称
@@ -266,7 +282,7 @@
         <p id="num_of_comments"><%=num_comment%>评论</p>
         <div id="user_comment">
             <img id="face_img" src="<%=my_img%>">
-            <form action="info.jsp" method="get" id="comment_form">
+            <form action="" method="post" enctype="multipart/form-data" id="comment_form" >
                 <input type="text" name="mid" hidden value="<%=mid%>">
                 <textarea id="input_area"  name="content" rows="5" placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。"></textarea>
                 <div id="rating" >
