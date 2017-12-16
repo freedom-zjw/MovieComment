@@ -10,8 +10,24 @@ public class Commentdb {
 		db = new DataBase();
 	}
 	
-	public ResultSet queryByMid(String mid)throws Exception { 
-		String sql = "select * from comments where mid=" +  mid + "order by commentTime desc";
+	public ResultSet queryByMid(String mid, int st, int cnt)throws Exception { 
+		String sql = "select "
+					+ "comments.cid as cid, "
+					+ "comments.mid as mid, "
+					+ "comments.uid as uid,"
+			     	+ "comments.info as info, "
+			     	+ "comments.commentTime as commentTime, "
+			     	+ "comments.comment_src as src, "
+			     	+ "comments.score as score, "
+			     	+ "User.name as name, "
+			     	+ "User.account as account, "
+			     	+ "User.uid as userid, "
+			     	+ "User.Image_src as user_src "
+			     	+ "from comments, User  "
+			     	+ "where comments.mid=" + mid + " "
+			     	+ "and User.uid=comments.uid "
+			     	+ "order by commentTime desc "
+			     	+ "limit " +  st +", " + cnt;
 		ResultSet rs =db.select(sql);
 		return rs;
 	}

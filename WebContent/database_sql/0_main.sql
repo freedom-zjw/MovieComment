@@ -74,3 +74,4 @@ Insert into User(account, password, name, Sex, info, Image_src, hobby, permissio
 Values("user","123", '平民','man','我是平民','头像2.0.png','打打代码', 0);
 
 
+
