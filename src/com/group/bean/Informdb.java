@@ -21,6 +21,8 @@ public class Informdb {
 		return rs;
 	}
 	
+	
+	
 	public void insertDelete(String cid, String uid, String title, String info)throws Exception  {
 		String sql0 = "select comments.commentTime as commentTime, "
 				      + "comments.info as info, "
@@ -45,7 +47,7 @@ public class Informdb {
 		db.insert(sql);		
 	}
 	
-
+	
 	public void insertReportUser(String cid, String uid, String title, String info)throws Exception  {
 		String sql0 = "select comments.commentTime as commentTime, "
 				      + "comments.info as info, "
@@ -98,4 +100,12 @@ public class Informdb {
 				    + "'" + title +"') ";
 		db.insert(sql);		
 	}
+	
+	public ResultSet queryAll(int st, int cnt) throws Exception {
+		String sql = "select * from information order by inforTime desc ";
+		sql += "limit " +  st +", " + cnt;
+		ResultSet rs =db.select(sql);
+		return rs;
+	}
+
 }

@@ -154,11 +154,17 @@
     	ResultSet report_rs = Commentdb.queryByCid(report_id);
     	report_rs.first();
     	user_commit_id = report_rs.getString("uid");
-    	if (user_id != null){
+    	if (user_id != null && !user_id.equals(user_commit_id)){
     		String report_info = "被举报，正在等待管理员审核";
     		Informdb.insertReportUser(report_id, user_commit_id, "你的评论被举报", report_info);
     		report_info = "被举报，请审核";
-    		Informdb.insertInformAdmin(report_id, user_commit_id, "用户的评论被举报", report_info);
+    		ResultSet Admin_rs = Userdb.getAdmin();
+    		while (Admin_rs.next()){
+    			String Admin_id = Admin_rs.getString("uid");
+    			Informdb.insertInformAdmin(report_id, Admin_id, "用户的评论被举报", report_info);
+    		}
+    		Admin_rs.close();
+    		Userdb.close();
     	}
     	else {
     		out.print("<script>alert('请先登录再删除');</script>");
@@ -293,7 +299,6 @@
                         <li><a href="search.jsp?types=movie&sort=hot">时下流行</a></li>
                         <li><a href="search.jsp?types=movie&sort=data">新片上映</a></li>
                         <li><a href="search.jsp?types=movie&sort=score">最佳口碑</a></li>
-                        <li><a href="search.jsp?types=movie&sort=max">热议影片</a></li>
                     </ul>
                 </li>
                 <li><a href="search.jsp?types=TV">电视</a>
@@ -301,11 +306,10 @@
                         <li><a href="search.jsp?types=TV&sort=hot">时下流行</a></li>
                         <li><a href="search.jsp?types=TV&sort=data">新片上映</a></li>
                         <li><a href="search.jsp?types=TV&sort=score">最佳口碑</a></li>
-                        <li><a href="search.jsp?types=TV&sort=max">热议影片</a></li>
                     </ul>
                 </li>
                 <li><a href="search.jsp?sort=hot">热评影视剧</a></li>
-                <li><a href="#">发现</a></li>
+                <li><a href="search.jsp">发现</a></li>
             </ul>
         </div>
         <div id="serach">

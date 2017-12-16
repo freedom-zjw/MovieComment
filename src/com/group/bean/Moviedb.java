@@ -62,6 +62,11 @@ public class Moviedb {
 		return rs;
 	}
 	
+	public void delete(String mid) throws Exception { 
+		String sql = "delete from movie where mid=" + mid;
+		db.delete(sql);
+	}
+	
 	public void close()throws Exception  {
 		db.Close();
 	}

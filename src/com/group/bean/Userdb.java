@@ -22,6 +22,20 @@ public class Userdb {
 		return rs;
 	}
 	
+	public ResultSet queryAll(int st, int cnt) throws Exception {
+		String sql = "select * from User ";
+		sql += "limit " +  st +", " + cnt;
+		ResultSet rs =db.select(sql);
+		return rs;
+	}
+	
+	public ResultSet getAdmin() throws Exception {
+		String sql = "select * from User where permission=1";
+		ResultSet rs =db.select(sql);
+		return rs;
+	}
+	
+	
 	public void insert(String sql)throws Exception{
 		db.insert(sql);
 	}

@@ -112,7 +112,7 @@
     <link rel="stylesheet" type="text/css" href="css/user_change.css" />
     <script type="text/javascript" src="js/face_preview.js"></script>
     <script type="text/javascript" src="js/header.js"></script>
-    <script type="text/javascript" src="js/user_change.jsp"></script>
+    <script type="text/javascript" src="js/user_change.js"></script>
     <style>
 
     </style>
@@ -137,7 +137,6 @@
                         <li><a href="search.jsp?types=movie&sort=hot">时下流行</a></li>
                         <li><a href="search.jsp?types=movie&sort=data">新片上映</a></li>
                         <li><a href="search.jsp?types=movie&sort=score">最佳口碑</a></li>
-                        <li><a href="search.jsp?types=movie&sort=max">热议影片</a></li>
                     </ul>
                 </li>
                 <li><a href="search.jsp?types=TV">电视</a>
@@ -145,11 +144,10 @@
                         <li><a href="search.jsp?types=TV&sort=hot">时下流行</a></li>
                         <li><a href="search.jsp?types=TV&sort=data">新片上映</a></li>
                         <li><a href="search.jsp?types=TV&sort=score">最佳口碑</a></li>
-                        <li><a href="search.jsp?types=TV&sort=max">热议影片</a></li>
                     </ul>
                 </li>
                 <li><a href="search.jsp?sort=hot">热评影视剧</a></li>
-                <li><a href="#">发现</a></li>
+                <li><a href="search.jsp">发现</a></li>
             </ul>
         </div>
         <div id="serach">

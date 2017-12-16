@@ -56,6 +56,7 @@ public class Commentdb {
 	}
 	
 	
+	
 	public ResultSet getUserInfoComment(String uid, int st, int cnt)throws Exception { 
 		String sql = "select "
 				     + "comments.info as info, "

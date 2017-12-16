@@ -106,15 +106,14 @@
     else Chooess[2]="";
     if(Chooes.equals("score")) Chooess[3]="selected";
     else Chooess[3]="";
-    if(Chooes.equals("max")) Chooess[4]="selected";
-    else Chooess[4]="";
+
     
     ResultSet MovieSearch_rs = Moviedb.Search(types_, Search_info, Chooes, pgno*5, 5);
     while (MovieSearch_rs.next()){
     	Name[List_size] = MovieSearch_rs.getString("name");
     	mid[List_size] = MovieSearch_rs.getString("mid");
     	Info[List_size] = MovieSearch_rs.getString("info");
-    	Info[List_size] = MovieSearch_rs.getString("score");
+    	Score[List_size] = MovieSearch_rs.getString("score");
     	Date[List_size] = MovieSearch_rs.getString("ReleaseTime");
     	Img_src[List_size] = MovieSearch_rs.getString("src");
     	Like[List_size] = 0;
@@ -154,7 +153,7 @@
     <div id="header" class="wrapper">
         <p>GoodMovie</p>
         <a href="<%=Login_src%>" id="logins" onMouseMove="moveLogin('<%=Login%>')" onMouseOut="outLogin('<%=Login%>')"><i class="fa fa-user-circle-o"></i> <%=Login%></a>
-        <a href="index.jsp?logout=true" id="logout" onMouseMove="moveLogin('<%=Login%>')" onMouseOut="outLogin('<%=Login%>')">退出</a>
+        <span onclick="location.href='index.jsp?logout=true'" id="logout" onMouseMove="moveLogin('<%=Login%>')" onMouseOut="outLogin('<%=Login%>')" style="height: 20px">退出</span>
     </div><!--header-->
 </div> <!--header_outer-->
 
@@ -168,7 +167,6 @@
                         <li><a href="search.jsp?types=movie&sort=hot">时下流行</a></li>
                         <li><a href="search.jsp?types=movie&sort=data">新片上映</a></li>
                         <li><a href="search.jsp?types=movie&sort=score">最佳口碑</a></li>
-                        <li><a href="search.jsp?types=movie&sort=max">热议影片</a></li>
                     </ul>
                 </li>
                 <li><a href="search.jsp?types=TV">电视</a>
@@ -176,11 +174,10 @@
                         <li><a href="search.jsp?types=TV&sort=hot">时下流行</a></li>
                         <li><a href="search.jsp?types=TV&sort=data">新片上映</a></li>
                         <li><a href="search.jsp?types=TV&sort=score">最佳口碑</a></li>
-                        <li><a href="search.jsp?types=TV&sort=max">热议影片</a></li>
                     </ul>
                 </li>
                 <li><a href="search.jsp?sort=hot">热评影视剧</a></li>
-                <li><a href="#">发现</a></li>
+                <li><a href="search.jsp">发现</a></li>
             </ul>
         </div>
         <div id="serach">
@@ -204,7 +201,6 @@
                 <option value="date" <%=Chooess[1]%>>最新</option>
                 <option value="hot" <%=Chooess[2]%>>最热</option>
                 <option value="score" <%=Chooess[3]%>>评分最高</option>
-                <option value="max" <%=Chooess[4]%>>评论最多</option>
             </select>
         </form>
         <p id="search_result"><%=Search_resule%></p>
@@ -228,7 +224,7 @@
                 <img src="<%=Img_src[1]%>" class="search_img" onclick="location.href='info.jsp?mid=<%=mid[1]%>'">
                 <p class="search_name" onclick="location.href='info.jsp?mid=<%=mid[1]%>'"><%=Name[1]%></p>
                 <p class="search_info" onclick="location.href='info.jsp?mid=<%=mid[1]%>'"><%=Info[1]%></p>
-                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[0]%>'">上映日期：<%=Date[1]%></p>
+                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[1]%>'">上映日期：<%=Date[1]%></p>
                 <p class="search_score" onclick="location.href='info.jsp?mid=<%=mid[1]%>'"><%=Score[1]%></p>
                 <hr class="search_hr" >
                 <i class="fa fa-heart-o" name="like" onclick="onmouseclick(1)"></i>
@@ -237,7 +233,7 @@
                 <img src="<%=Img_src[2]%>" class="search_img" onclick="location.href='info.jsp?mid=<%=mid[2]%>'">
                 <p class="search_name" onclick="location.href='info.jsp?mid=<%=mid[2]%>'"><%=Name[2]%></p>
                 <p class="search_info" onclick="location.href='info.jsp?mid=<%=mid[2]%>'"><%=Info[2]%></p>
-                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[0]%>'">上映日期：<%=Date[2]%></p>
+                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[2]%>'">上映日期：<%=Date[2]%></p>
                 <p class="search_score" onclick="location.href='info.jsp?mid=<%=mid[2]%>'"><%=Score[2]%></p>
                 <hr class="search_hr">
                 <i class="fa fa-heart-o" name="like" onclick="onmouseclick(2)"></i>
@@ -246,7 +242,7 @@
                 <img src="<%=Img_src[3]%>" class="search_img" onclick="location.href='info.jsp?mid=<%=mid[3]%>'">
                 <p class="search_name" onclick="location.href='info.jsp?mid=<%=mid[3]%>'"> <%=Name[3]%></p>
                 <p class="search_info" onclick="location.href='info.jsp?mid=<%=mid[3]%>'"><%=Info[3]%></p>
-                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[0]%>'">上映日期：<%=Date[3]%></p>
+                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[3]%>'">上映日期：<%=Date[3]%></p>
                 <p class="search_score" onclick="location.href='info.jsp?mid=<%=mid[3]%>'"><%=Score[3]%></p>
                 <hr class="search_hr">
                 <i class="fa fa-heart-o" name="like" onclick="onmouseclick(3)"></i>
@@ -255,7 +251,7 @@
                 <img src="<%=Img_src[4]%>" class="search_img" onclick="location.href='info.jsp?mid=<%=mid[4]%>'">
                 <p class="search_name" onclick="location.href='info.jsp?mid=<%=mid[4]%>'"><%=Name[4]%></p>
                 <p class="search_info" onclick="location.href='info.jsp?mid=<%=mid[4]%>'"><%=Info[4]%></p>
-                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[0]%>'">上映日期：<%=Date[4]%></p>
+                <p class="search_date" onclick="location.href='info.jsp?mid=<%=mid[4]%>'">上映日期：<%=Date[4]%></p>
                 <p class="search_score" onclick="location.href='info.jsp?mid=<%=mid[4]%>'"><%=Score[4]%></p>
                 <hr class="search_hr">
                 <i class="fa fa-heart-o" name="like" onclick="onmouseclick(4)"></i>

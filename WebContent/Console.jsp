@@ -10,7 +10,7 @@
 <%  request.setCharacterEncoding("utf-8");%> 
 <jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
 <jsp:useBean id="Moviedb" class="com.group.bean.Moviedb" scope="page"/> 
-<jsp:useBean id="Commentdb" class="com.group.bean.Commentdb" scope="page"/> 
+<jsp:useBean id="Informdb" class="com.group.bean.Informdb" scope="page"/> 
 <%
 	String user_id = (String)session.getAttribute("user_id");//用户id
 	String Login="Login";//登陆后显示用户名
@@ -34,7 +34,7 @@
     String[] mid={"","","","","","","",""};
     String[] uid={"","","","","","","",""};
     String[] title={"","","","","","","",""};
-	Integer user_size=8,movie_size=8,info_size=8;
+	Integer user_size=0,movie_size=0,info_size=0;
 	
 	
 	
@@ -47,6 +47,15 @@
     int user_next = user_pgno+1;
 	//只需要账户和名字
 	
+	ResultSet  UserSearch_rs = Userdb.queryAll(user_pgno*8, 8);
+	while (UserSearch_rs.next()){
+		account[user_size] =  UserSearch_rs.getString("account");
+		name[user_size] =  UserSearch_rs.getString("name");
+		user_size += 1;
+	}
+	UserSearch_rs.close();
+	Userdb.close();
+	
     Integer movie_pgno = 0; //当前电影页号
     String param2 = request.getParameter("movie_pgno");
     if(param2 != null && !param2.isEmpty()){
@@ -56,6 +65,20 @@
     int movie_next = movie_pgno+1;
 	//只需要mid 和名字
 	
+	
+	
+	ResultSet MovieSearch_rs = Moviedb.Search("", "", "unselect", movie_pgno*8, 8);
+	while (MovieSearch_rs.next()){
+		movie_name[movie_size] = MovieSearch_rs.getString("name");
+    	mid[movie_size] = MovieSearch_rs.getString("mid");
+    	movie_size += 1;
+	}
+    MovieSearch_rs.close();
+    Moviedb.close();
+    
+    
+    
+
     Integer info_pgno = 0; //当前通知页号
     String param3 = request.getParameter("info_pgno");
     if(param3 != null && !param3.isEmpty()){
@@ -64,28 +87,41 @@
     int info_pre = (info_pgno>0)?info_pgno-1:0;
     int info_next = info_pgno+1;
 	//只需要id和标题
+	
+	ResultSet Informdb_rs = Informdb.queryAll(info_pgno*8, 8);
+    while (Informdb_rs.next()){
+    	title[info_size] = Informdb_rs.getString("title");
+    	uid[info_size] = Informdb_rs.getString("uid");
+    	info_size += 1;
+    }
+    Informdb_rs.close();
+    Informdb.close();
 
-
+    
     String flag=request.getParameter("flag");
     if(flag==null)flag="";
     if(flag.equals("0")){
         String premiss=request.getParameter("premiss");
         String account_=request.getParameter("account");
         if(premiss!=null&&account_!=null){
-			//修改用户权限
+        	String sql="";
+        	sql="UPDATE User set permission="+premiss+" where account='"+account_+"'";
+        	Userdb.update(sql);
         }
     }
     else if(flag.equals("1")){
         String mid_=request.getParameter("mid");
         if(mid_!=null){
-			//删除
+			Moviedb.delete(mid_);
         }
     }
     else if(flag.equals("2")){
         String uid_=request.getParameter("uid");
         String premiss=request.getParameter("premiss");
         if(uid_!=null&&premiss!=null){
-			//一样改了
+        	String sql="";
+        	sql="UPDATE User set permission="+premiss+" where uid='"+uid_+"'";
+        	Userdb.update(sql);
         }
     }
 
@@ -123,7 +159,6 @@
                         <li><a href="search.jsp?types=movie&sort=hot">时下流行</a></li>
                         <li><a href="search.jsp?types=movie&sort=data">新片上映</a></li>
                         <li><a href="search.jsp?types=movie&sort=score">最佳口碑</a></li>
-                        <li><a href="search.jsp?types=movie&sort=max">热议影片</a></li>
                     </ul>
                 </li>
                 <li><a href="search.jsp?types=TV">电视</a>
@@ -131,11 +166,10 @@
                         <li><a href="search.jsp?types=TV&sort=hot">时下流行</a></li>
                         <li><a href="search.jsp?types=TV&sort=data">新片上映</a></li>
                         <li><a href="search.jsp?types=TV&sort=score">最佳口碑</a></li>
-                        <li><a href="search.jsp?types=TV&sort=max">热议影片</a></li>
                     </ul>
                 </li>
                 <li><a href="search.jsp?sort=hot">热评影视剧</a></li>
-                <li><a href="#">发现</a></li>
+                <li><a href="search.jsp">发现</a></li>
             </ul>
         </div>
         <div id="serach">

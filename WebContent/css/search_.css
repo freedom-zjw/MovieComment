@@ -269,7 +269,7 @@ li {list-style-type:none}
 	left: 200px;
 	width: 650px;
 	height: 130px;
-	overflow: hidden;
+	overflow-y: scroll;
 }
 .search_hr{
 	position: absolute;
