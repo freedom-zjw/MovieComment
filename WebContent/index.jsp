@@ -149,7 +149,7 @@
     <div id="today">
         <hr>
         <a href="info.jsp?mid=<%=today_id%>">今日推荐：<%=today_name%></a>
-        <video controls src="<%=today%>" style="margin: 80px 0px"></video>
+        <video controls src="<%=today%>"  autoplay="autoplay" style="margin: 80px 0px"></video>
     </div>
 </div>
 
