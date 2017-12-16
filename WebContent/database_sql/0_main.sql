@@ -22,7 +22,7 @@ create table User(
 	Image_src varchar(500) default  'image/defaultPhoto.jpg',
 	hobby varchar(1000) default '还没有填写兴趣哦',
 	permission INT not null default 0
-)default charset=utf8;
+)ENGINE=innodb default charset=utf8;
 
 create table movie(
 	mid INT not null AUTO_INCREMENT PRIMARY KEY,
@@ -34,38 +34,46 @@ create table movie(
 	score float(2,1),
 	Type varchar(10),
 	hot INT default 0
-)default charset=utf8;
+)ENGINE=innodb default charset=utf8;
 
 create table comments(
 	cid INT not null AUTO_INCREMENT PRIMARY KEY,
-	mid INT references movie(mid) on delete cascade,
-	uid INT references User(uid) on delete cascade,
+	mid INT not null,
+	uid INT not null,
 	info varchar(1000),
 	score float(2,1),
 	commentTime DATETIME,
-	src varchar(500) references movie(src) on delete cascade,
-	comment_src varchar(500)
-)default charset=utf8;
+	src varchar(500),
+	comment_src varchar(500),
+	foreign key (mid) references movie(mid) on delete cascade,
+	foreign key (uid) references User(uid) on delete cascade
+	
+)ENGINE=innodb default charset=utf8;
+
 
 create table information(
 	iid INT not null AUTO_INCREMENT PRIMARY KEY,
-	uid INT references User(uid) on delete cascade,
+	uid INT not null,
 	info varchar(1000),
 	inforTime DATETIME,
-	title varchar(50)
-)default charset=utf8;
+	title varchar(50),
+	foreign key (uid) references User(uid) on delete cascade
+)ENGINE=innodb default charset=utf8;
 
 create table stagephoto(
 	pid INT not null AUTO_INCREMENT PRIMARY KEY,
-	mid INT references movie(mid) on delete cascade,
-	src varchar(500) not null
-)default charset=utf8;
+	mid INT not null,
+	src varchar(500) not null,
+	foreign key (mid) references movie(mid) on delete cascade
+)ENGINE=innodb default charset=utf8;
 
 create table likes(
 	lid INT not null AUTO_INCREMENT PRIMARY KEY,
-	mid INT references movie(mid) on delete cascade,
-	uid INT references User(uid) on delete cascade
-)default charset=utf8;
+	mid INT not null,
+	uid INT not null,
+	foreign key (mid) references movie(mid) on delete cascade,
+	foreign key (uid) references User(uid) on delete cascade
+)ENGINE=innodb default charset=utf8;
 
 Insert into User(account, password, name, Sex, info, Image_src, hobby, permission)
 Values("admin","123", '管理员','unkown','我是管理员','头像2.0.png','管理本站', 1);
