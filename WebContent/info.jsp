@@ -3,7 +3,10 @@
 	contentType="text/html; UTF-8"
     pageEncoding="UTF-8"
 %>
-<%@ page import="java.util.*,java.sql.*"%>
+<%@ page import="java.io.*, java.util.*,java.sql.*,org.apache.commons.io.*"%>
+<%@ page import="org.apache.commons.fileupload.*"%>
+<%@ page import="org.apache.commons.fileupload.disk.*"%>
+<%@ page import="org.apache.commons.fileupload.servlet.*"%>
 <%  request.setCharacterEncoding("utf-8");%> 
 <jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
 <jsp:useBean id="Moviedb" class="com.group.bean.Moviedb" scope="page"/> 
@@ -22,47 +25,7 @@
     	permissions = (Integer)session.getAttribute("permission");
     	my_img = (String)session.getAttribute("Image_src"); //已登录用户的头像(就是准备发布评论的人的头像)
     }
-    /**
-     * 发表评论
-     * mid=1&content=&level=5&file=&submit=OK
-     * mid   内容     评分    文件   提交
-     */
     
-    
-    String method = request.getMethod();
- 	boolean post = method.equalsIgnoreCase("post");
- 	if (post){
- 		 if (user_id==null){
- 			out.print("<script>alert('请先登录再发表评论！');</script>");
- 		 }
- 		 else{
- 			out.print("<script>alert('成功评论！');</script>");
- 		 }
- 	}
-    
-
-    /**
-     * deleted_id 删除的那条评论id
-     */
-    String deleted_id= request.getParameter("deleted");
-    if(deleted_id!=null){
-        String user_commit_id="";//那条评论的用户id
-        if(user_id!=null && user_commit_id.equals(user_id)||permissions==1){
-            //删除评论
-            //向通知表中插入title 你的评论被删除 info:被管理员删除/被自己删除  time 当前时间
-        }
-        else{
-        	out.print("<script>alert('你没有权利删除');</script>");
-        }
-    }
-    /**
-     * 举报 评论id
-     */
-    String report_id=request.getParameter("report");
-    if(report_id!=null){
-        //uid先去查评论 用户id 向通知表中插入title 你的评论被举报 info: 你的评论被举报正在等待管理员审核 time 当前时间
-    }
-
 
     /**
      * 检索电影
@@ -96,6 +59,88 @@
     }
     stage_rs.close();
     Stagedb.close();
+    
+    /**
+     * 发表评论
+     * mid=1&content=&level=5&file=&submit=OK
+     * mid   内容     评分    文件   提交
+     */
+    
+    
+    String method = request.getMethod();
+ 	boolean post = method.equalsIgnoreCase("post");
+ 	if (post){
+ 		 if (user_id==null){
+ 			out.print("<script>alert('请先登录再发表评论！');</script>");
+ 		 }
+ 		 else{
+ 			boolean isMultipart = ServletFileUpload.isMultipartContent(request);//检查表单中是否包含文件
+ 			if (isMultipart) {
+ 				FileItemFactory factory = new DiskFileItemFactory();
+ 				ServletFileUpload upload = new ServletFileUpload(factory);
+ 				List items = upload.parseRequest(request);
+ 				String com_mid, com_info, com_score, com_src, com_comsrc = new String();
+ 				com_src = movie_src;
+ 				com_mid ="";
+ 				com_info="";
+ 				com_score="";
+ 				com_comsrc="";
+ 				for (int i = 0; i < items.size(); i++) {
+ 					FileItem fi = (FileItem) items.get(i);
+ 					if (fi.isFormField()){
+ 						System.out.println(i + ": " + fi.getString("utf-8"));
+ 						if (i==0) com_mid = fi.getString("utf-8");
+ 						else if (i==1) com_info = fi.getString("utf-8");
+ 						else if (i==2) com_score = fi.getString("utf-8");
+ 					}
+ 					else {
+ 						DiskFileItem dfi = (DiskFileItem) fi;
+ 						if (!dfi.getName().trim().equals("")) {
+ 							String fileName = user_id + '_' + com_info + '_' + com_mid + '_' + com_score + ".png";
+ 							String filepath=application.getRealPath("/temp/CommentPic");
+ 							File FileDir = new File(filepath);
+ 							if (!FileDir.exists()){
+ 								FileDir.mkdirs();
+ 							}
+ 							filepath =  filepath
+ 									 + System.getProperty("file.separator") //获取系统文件分隔符
+ 									 + fileName;
+ 							System.out.println(filepath);
+ 							com_comsrc = "temp/CommentPic/" + fileName;
+ 							dfi.write(new File(filepath));
+ 						}
+ 					}
+ 				}
+ 				score = Commentdb.insertNewComment(com_mid, user_id, com_info, com_score, com_src, com_comsrc);
+ 				out.print("<script>alert('成功评论！');</script>");
+ 			 }
+ 		 }
+ 	}
+    
+
+    /**
+     * deleted_id 删除的那条评论id
+     */
+    String deleted_id= request.getParameter("deleted");
+    if(deleted_id!=null){
+        String user_commit_id="";//那条评论的用户id
+        if(user_id!=null && user_commit_id.equals(user_id)||permissions==1){
+            //删除评论
+            //向通知表中插入title 你的评论被删除 info:被管理员删除/被自己删除  time 当前时间
+        }
+        else{
+        	out.print("<script>alert('你没有权利删除');</script>");
+        }
+    }
+    /**
+     * 举报 评论id
+     */
+    String report_id=request.getParameter("report");
+    if(report_id!=null){
+        //uid先去查评论 用户id 向通知表中插入title 你的评论被举报 info: 你的评论被举报正在等待管理员审核 time 当前时间
+    }
+
+
     
     /**
      * 检索评论
