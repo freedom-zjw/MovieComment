@@ -3,18 +3,43 @@
 	contentType="text/html; UTF-8"
     pageEncoding="UTF-8"
 %>
+<%@ page import="java.util.*,java.sql.*"%>
+<%  request.setCharacterEncoding("utf-8");%> 
+<jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
+<jsp:useBean id="Moviedb" class="com.group.bean.Moviedb" scope="page"/> 
+<jsp:useBean id="Commentdb" class="com.group.bean.Commentdb" scope="page"/> 
+<jsp:useBean id="Stagedb" class="com.group.bean.Stagedb" scope="page"/> 
 <%
 	String user_id = (String)session.getAttribute("user_id");//用户id
     String Login="Login";//登陆后显示用户名
     Integer permissions=0;//用户权限 0普通1管理员
     String Login_src="login.jsp";
-    if(user_id!=null)Login_src="user_info.jsp";
+    String my_img = "image/defaultPhoto.jpg";
+    ResultSet user_rs = null;
+    if(user_id!=null){
+    	Login_src="user_info.jsp";
+    	Login = (String)session.getAttribute("account");
+    	permissions = (Integer)session.getAttribute("permission");
+    	my_img = (String)session.getAttribute("Image_src"); //已登录用户的头像(就是准备发布评论的人的头像)
+    }
     /**
      * 发表评论
      * mid=1&content=&level=5&file=&submit=OK
      * mid   内容     评分    文件   提交
      */
-    //写一下吧
+    
+    
+    String method = request.getMethod();
+ 	boolean post = method.equalsIgnoreCase("post");
+ 	if (post){
+ 		 if (user_id==null){
+ 			out.print("<script>alert('请先登录再发表评论！');</script>");
+ 		 }
+ 		 else{
+ 			out.print("<script>alert('成功评论！');</script>");
+ 		 }
+ 	}
+    
 
     /**
      * deleted_id 删除的那条评论id
@@ -22,9 +47,12 @@
     String deleted_id= request.getParameter("deleted");
     if(deleted_id!=null){
         String user_commit_id="";//那条评论的用户id
-        if(user_commit_id.equals(user_id)||permissions==1){
+        if(user_id!=null && user_commit_id.equals(user_id)||permissions==1){
             //删除评论
             //向通知表中插入title 你的评论被删除 info:被管理员删除/被自己删除  time 当前时间
+        }
+        else{
+        	out.print("<script>alert('你没有权利删除');</script>");
         }
     }
     /**
@@ -40,19 +68,35 @@
      * 检索电影
      */
     String mid = request.getParameter("mid");//电影id
-    if(mid==null)mid="";
-
+    if(mid==null){
+    	mid="";
+    	response.sendRedirect("index.jsp");
+    	return;
+    }
+    
     //检索
-
-	String title_call_to_movie,tagline,score,movie_src,movie_introduction,num_comment,movie_date,my_img=new String();
-	title_call_to_movie="Men In Black Trilogy"; //电影名称
-	tagline="NOW ON 4K ULTRA HD™"; //二级标题，tag一类的东西
-	score="5.0"; //电影评分
-	movie_src="onesheet.jpg"; //电影图片src
-	movie_introduction="test test test"; //电影简介
-	num_comment="4396"; //总评论数
-	my_img="头像2.0.png"; //已登录用户的头像(就是准备发布评论的人的头像)
-    movie_date="2017.12.11";//上映时间
+    ResultSet movie_rs = Moviedb.queryById(Integer.parseInt(mid));
+    movie_rs.next();
+	String title_call_to_movie,tagline,score,movie_src,movie_introduction,num_comment,movie_date=new String();
+	title_call_to_movie = movie_rs.getString("name"); //电影名称
+	tagline = movie_rs.getString("tag"); //二级标题，tag一类的东西
+	score = movie_rs.getString("score"); //电影评分
+	movie_src = movie_rs.getString("src"); //电影图片src
+	movie_introduction = movie_rs.getString("info"); //电影简介
+	num_comment = Commentdb.getComNumsByMid(Integer.parseInt(mid)); //总评论数
+    movie_date = movie_rs.getString("ReleaseTime");//上映时间
+    movie_rs.close();
+    Moviedb.close();
+    
+    String[] photos=new String[]{"image/bk_login.png",""};//剧照
+    ResultSet stage_rs = Stagedb.queryByMid(mid);
+    for (int i=0; i<2; i++){
+    	stage_rs.next();
+    	photos[i] = stage_rs.getString("src");
+    }
+    stage_rs.close();
+    Stagedb.close();
+    
     /**
      * 检索评论
      */
@@ -66,7 +110,6 @@
 	String[] floor_No=new String[5];//楼层编号
 	String[] user_time=new String[5];//用户评论时间
 	Integer[] user_star=new Integer[5];//该用户评星
-	String[] photos=new String[]{"image/bk_login.png",""};//剧照
 	
     //修改这些
     Integer pgno = 0; //当前页号翻页用
@@ -76,18 +119,24 @@
     }
     int pgprev = (pgno>0)?pgno-1:0;
     int pgnext = pgno+1;
+    
     //检索并且赋值
-    Integer info_cnt=5; //当前界面信息数  最大为5 最小1  重要
-    for(int i=0;i<info_cnt;i++){
-        user_name[i]="用户"+(i+1);
-        user_img[i]="头像2.0.png";
-        comment_id[i]=""+i;
-        user_comment[i]="用户"+(i+1)+"评论内容";
-        comment_src[i]="image/bk_login.png";//没有显示为""
-        floor_No[i]="#"+(i+1);
-        user_time[i]="2017.12.11 20:00";
-        user_star[i]=i+1;
+    Integer info_cnt=0; //当前界面信息数  最大为5 最小0  重要
+    ResultSet com_rs = Commentdb.queryByMid(mid, pgno*5, 5);
+    while (com_rs.next()){
+        user_name[info_cnt] = com_rs.getString("account") + ": " + com_rs.getString("name");
+        user_img[info_cnt] = com_rs.getString("user_src");
+        comment_id[info_cnt]= com_rs.getString("cid");
+        user_comment[info_cnt] = "<br/>" + com_rs.getString("info");
+        comment_src[info_cnt] = com_rs.getString("src");//没有显示为""
+        if (comment_src[info_cnt] == null)comment_src[info_cnt] = "";
+        floor_No[info_cnt] = "#"+(pgno*5 + 5 - info_cnt);
+        user_time[info_cnt] = com_rs.getString("commentTime");
+        user_star[info_cnt] = com_rs.getInt("score");
+        info_cnt += 1;
     }
+    com_rs.close();
+    Commentdb.close();
     /**
      * 检索推荐列表
      */
@@ -95,11 +144,28 @@
 	String[] recommend_img=new String[4];//推荐电影的图片
 	String[] recommend_name=new String[4];//推荐电影的名称
     Integer[] recommend_id=new Integer[4];//推荐电影的id
-	for(int i=0;i<4;i++){ //初始化
+    for(int i=0;i<4;i++){ //初始化
 	    recommend_img[i]="推荐.jpg";
 	    recommend_name[i]="Men In Black";
 	    recommend_id[i]=i;
 	}
+    int total = Moviedb.getNumOfMovie();
+    int N = total>4?4:total;
+    ResultSet recommend_rs = Moviedb.getAll();
+    Random rand= new Random();
+    ArrayList<Integer> list = new ArrayList<Integer>();
+	for(int i=0;i<N;i++){
+		recommend_id[i]= rand.nextInt(total) + 1;
+		while (list.contains(recommend_id[i])){
+			list.add(recommend_id[i]);
+		}
+		recommend_rs.absolute(recommend_id[i]);
+		recommend_img[i] = recommend_rs.getString("src");
+		recommend_name[i] = recommend_rs.getString("name");
+	}
+	recommend_rs.close();
+	Moviedb.close();
+
 
 
 
@@ -216,7 +282,7 @@
         <p id="num_of_comments"><%=num_comment%>评论</p>
         <div id="user_comment">
             <img id="face_img" src="<%=my_img%>">
-            <form action="info.jsp" method="get" id="comment_form">
+            <form action="" method="post" enctype="multipart/form-data" id="comment_form" >
                 <input type="text" name="mid" hidden value="<%=mid%>">
                 <textarea id="input_area"  name="content" rows="5" placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。"></textarea>
                 <div id="rating" >
