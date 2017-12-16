@@ -6,7 +6,7 @@ public class Moviedb {
 	
 	private DataBase db;
 	
-	public Moviedb () {
+	public Moviedb() {
 		db = new DataBase();
 	}
 	

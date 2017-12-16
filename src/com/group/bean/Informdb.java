@@ -6,7 +6,7 @@ public class Informdb {
 	
 	private DataBase db;
 	
-	public  Informdb() {
+	public Informdb() {
 		db = new DataBase();
 	}
 	
