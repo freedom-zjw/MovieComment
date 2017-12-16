@@ -1,0 +1,116 @@
+
+body{
+    background: #eee;
+
+}
+#main_outer{
+    width: 100%;
+    min-width: 1000px;
+}
+#main_inner{
+    width: 980px;
+    margin: auto;
+    background: #f4f5f6;
+    height: 520px;
+}
+#menu{
+    width: 170px;
+    padding:30px 0px;
+    margin: 20px;
+    background: #2d2b32;
+    border: solid 1px #e4e5e6;
+    border-radius: 10px;
+    position: relative;
+    float: left;
+}
+.button{
+    margin: 0px 10px;
+    width: 150px;
+    height: 60px;
+    background: #2d2b32;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+
+}
+.button:hover{
+    box-shadow: inset 0px 0px 20px white;
+    color: aqua;
+}
+.info{
+    float: right;
+    width: 700px;
+    margin: 20px;
+}
+.titles{
+    display: block;
+    font-size: 25px;
+    padding: 10px 5px;
+    background: #f6f6f6;
+    color: #767676;
+    border-radius: 5px;
+    text-shadow: 0px 0px 5px;
+}
+#first{
+    width: 150px;
+}
+#sec{
+    width: 200px;
+}
+#thr{
+    width: 300px;
+}
+td{
+    text-align: center;
+    background: #e5e5e5;
+    padding: 3px;
+    margin: 2px auto;
+    height: 35px;
+}
+.buttonsub{
+    margin: 5px;
+    background: #2d2b32;
+    border: none;
+    color: aliceblue;
+    padding: 5px 5px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px gray;
+}
+.buttonsub:active{
+    box-shadow: inset 0px 0px 5px white;
+}
+#page{
+    width:240px;
+    height: 30px;
+    float: right;
+    text-align: left;
+    display: none;
+}
+#page>a{
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+}
+#user_info{
+    display: none;
+}
+#movie_info{
+    display: none;
+}
+#info{
+    display: none;
+}
+#welcome>button{
+    float: right;
+    width: 700px;
+    height: 450px;
+    margin: 20px;
+    font-size:50px;
+    color: gray;
+    font-style: italic;
+    font-weight: bolder;
+    text-shadow: 0px 0px 5px;
+    background: rgba(255,255,255,0);
+    border: none;
+}
