@@ -9,6 +9,9 @@
 <%@ page import="java.util.*,java.sql.*"%> 
 <%  request.setCharacterEncoding("utf-8");%>
 <jsp:useBean id="Userdb" class="com.group.bean.Userdb" scope="page"/> 
+<jsp:useBean id="Informdb" class="com.group.bean.Informdb" scope="page"/> 
+<jsp:useBean id="Commentdb" class="com.group.bean.Commentdb" scope="page"/> 
+<jsp:useBean id="Likedb" class="com.group.bean.Likedb" scope="page"/> 
 <%
     String user_id = (String)session.getAttribute("user_id");//用户id
     String Login="Login";//登陆后显示用户名
@@ -45,7 +48,7 @@
      *
      * 后面通知翻页
      */
-    Integer info_cnt=3;//通知数量  0-3
+    Integer info_cnt=0;//通知数量  0-3
     String info_name[]={"通知1","通知2","通知3"};
     String info_content[]={"内容1","内容2","内容3"};
     String info_date[]={"1111.11.11","1111.11.11","1111.11.11"};
@@ -56,17 +59,26 @@
     }
     int info_pre = (info_pgno>0)?info_pgno-1:0;
     int info_next = info_pgno+1;
+    ResultSet info_rs = Informdb.queryByUid(user_id, info_pgno*3, 3);
+    while (info_rs.next()){
+    	info_name[info_cnt] = info_rs.getString("title");
+    	info_content[info_cnt] = info_rs.getString("info");
+    	info_date[info_cnt] = info_rs.getString("inforTime");
+    	info_cnt += 1;
+    }
+    info_rs.close();
+    Informdb.close();
 
     /**
      * 获取自己的评论信息
      * 评论翻页
      * 其中src为电影封面
      */
-    Integer commit_cnt=3;//评论数量  0-3
+    Integer commit_cnt=0;//评论数量  0-3
     String commit_name[]={"评论1","评论2","评论3"};
     String commit_content[]={"内容1","内容2","内容3"};
     String commit_src[]={"图1","图2","图3"};
-    String commit_mid[]={"","",""};
+    //String commit_mid[]={"","",""};
     Integer commit_pgno = 0; //当前评论页号
     String param2 = request.getParameter("commit_pgno");
     if(param2 != null && !param2.isEmpty()){
@@ -74,17 +86,27 @@
     }
     int commit_pre = (commit_pgno>0)?commit_pgno-1:0;
     int commit_next = commit_pgno+1;
+    
+    ResultSet commit_rs = Commentdb.getUserInfoComment(user_id, commit_pgno*3, 3);
+    while (commit_rs.next()){
+    	commit_name[commit_cnt] = commit_rs.getString("name");
+    	commit_content[commit_cnt] = commit_rs.getString("info");
+    	commit_src[commit_cnt] = commit_rs.getString("image_src");
+    	commit_cnt += 1;
+    }
+    commit_rs.close();
+    Commentdb.close();
 
     /**
      * 收藏电影
      * src 为电影封面
      * 之后也是翻页
      */
-    Integer like_cnt=3;//收藏数量  0-3
+    Integer like_cnt=0;//收藏数量  0-3
     String like_name[]={"收藏1","收藏2","收藏3"};
     String like_content[]={"内容1","内容2","内容3"};
     String like_src[]={"图1","图2","图3"};
-    String like_mid[]={"","",""};
+    //String like_mid[]={"","",""};
     Integer like_pgno = 0; //当前收藏页号
     String param3 = request.getParameter("like_pgno");
     if(param3 != null && !param3.isEmpty()){
@@ -92,6 +114,15 @@
     }
     int like_pre = (commit_pgno>0)?commit_pgno-1:0;
     int like_next = commit_pgno+1;
+    ResultSet like_rs = Likedb.getUserInfoLike(user_id, like_pgno*3, 3);
+    while (like_rs.next()){
+    	like_name[like_cnt] = like_rs.getString("name");
+    	like_content[like_cnt] = like_rs.getString("info");
+    	like_src[like_cnt] = like_rs.getString("image_src");
+    	like_cnt += 1;
+    }
+    like_rs.close();
+    Likedb.close();
 %>
 
 

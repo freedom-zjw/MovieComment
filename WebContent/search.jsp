@@ -13,7 +13,10 @@
 
     ////////////////////不动
     String Login_src="login.jsp";
-    if(user_id!=null)Login_src="user_info.jsp";
+    if(user_id!=null){
+    	Login = (String)session.getAttribute("account");
+    	Login_src="user_info.jsp";
+    }
     /////////////////////
     /**
      * 从数据库中提出的信息存放
