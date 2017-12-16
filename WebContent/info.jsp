@@ -150,6 +150,21 @@
     String report_id=request.getParameter("report");
     if(report_id!=null){
         //uid先去查评论 用户id 向通知表中插入title 你的评论被举报 info: 你的评论被举报正在等待管理员审核 time 当前时间
+    	String user_commit_id="";
+    	ResultSet report_rs = Commentdb.queryByCid(report_id);
+    	report_rs.first();
+    	user_commit_id = report_rs.getString("uid");
+    	if (user_id != null){
+    		String report_info = "被举报，正在等待管理员审核";
+    		Informdb.insertReportUser(report_id, user_commit_id, "你的评论被举报", report_info);
+    		report_info = "被举报，请审核";
+    		Informdb.insertInformAdmin(report_id, user_commit_id, "用户的评论被举报", report_info);
+    	}
+    	else {
+    		out.print("<script>alert('请先登录再删除');</script>");
+    	}
+        report_rs.close();
+        Commentdb.close();
     }
 
 
