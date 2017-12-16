@@ -75,7 +75,7 @@
         			session.setAttribute("user_id", user_id);
         			session.setAttribute("account",  user);
         			session.setAttribute("sex",  rs.getString("sex"));
-        			session.setAttribute("permission",  rs.getInt("permission"));
+        			session.setAttribute("permissions",  rs.getInt("permission"));
         			session.setAttribute("Image_src",  rs.getString("Image_src"));
         			flag = 1;
         			out.print("<script>alert('成功登陆！');</script>");

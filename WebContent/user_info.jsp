@@ -42,7 +42,7 @@
 		info = rs.getString("info");
 		hobby = rs.getString("hobby");
 		img_src = rs.getString("Image_src");
-		premission = rs.getInt("permission");
+		permission = rs.getInt("permission");
 	}
 	rs.close();
 	Userdb.close();
