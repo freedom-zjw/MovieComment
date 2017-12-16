@@ -66,11 +66,13 @@
      * mid=1&content=&level=5&file=&submit=OK
      * mid   内容     评分    文件   提交
      */
-    
-    
+    String report_id=request.getParameter("report");
+    String deleted_id= request.getParameter("deleted");
     String method = request.getMethod();
  	boolean post = method.equalsIgnoreCase("post");
  	if (post){
+ 		 report_id=null;
+ 		 deleted_id=null;
  		 if (user_id==null){
  			out.print("<script>alert('请先登录再发表评论！');</script>");
  		 }
@@ -121,7 +123,7 @@
     /**
      * deleted_id 删除的那条评论id
      */
-    String deleted_id= request.getParameter("deleted");
+   
     if(deleted_id!=null){
         String user_commit_id="";//那条评论的用户id
         ResultSet delete_rs = Commentdb.queryByCid(deleted_id);
@@ -134,17 +136,21 @@
             else Informdb.insertDelete(deleted_id, user_commit_id, "你的评论被删除", "被自己删除");
             //删除评论
             Commentdb.deleteByCid(deleted_id);
+            out.print("<script>alert('成功删除评论');</script>");
+            delete_rs.close();
+            Commentdb.close();
+            //response.sendRedirect("info.jsp?mid=" + mid);
         }
         else{
         	out.print("<script>alert('你没有权利删除');</script>");
         }
         delete_rs.close();
         Commentdb.close();
+        //response.sendRedirect("info.jsp?mid=" + mid);
     }
     /**
      * 举报 评论id
      */
-    String report_id=request.getParameter("report");
     if(report_id!=null){
         //uid先去查评论 用户id 向通知表中插入title 你的评论被举报 info: 你的评论被举报正在等待管理员审核 time 当前时间
     	String user_commit_id="";
@@ -162,9 +168,15 @@
     		}
     		Admin_rs.close();
     		Userdb.close();
+    		out.print("<script>alert('成功举报评论');</script>");
+            report_rs.close();
+            Commentdb.close();
     	}
     	else {
-    		out.print("<script>alert('请先登录再删除');</script>");
+    	    if (user_id == null)
+    			out.print("<script>alert('请先登录再举报');</script>");
+    	    else
+    	    	out.print("<script>alert('自己不能举报自己哦');</script>");
     	}
         report_rs.close();
         Commentdb.close();
