@@ -87,7 +87,7 @@ public class Informdb {
 			info = "用户 " + rs.getString("account") + ": " + rs.getString("name") + " 于 "  
 				   + rs.getString("commentTime") + " 对 " + rs.getString("Type")
 			       + " <<" + rs.getString("name") + ">> 的评论内容: \"" + rs.getString("info") 
-			       + "\" " + info;
+			       + "\" " + info + " cid是 " + cid;
 			rs.close();
 			close();
 		}
