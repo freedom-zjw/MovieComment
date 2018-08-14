@@ -39,7 +39,7 @@
 * 前端frontend：`html`+`css`+`JavaScript`
 * 后端backend：`jsp`(Java Server Page) + `javabean` 
 
-###Dependences
+### Dependences
 
 * 数据库·：[MySQL](https://dev.mysql.com/downloads/mysql/)
 * java 开发环境：[JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
